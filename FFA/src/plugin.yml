@@ -1,0 +1,11 @@
+name: FFA
+author: ZilloLP
+main: de.zillolp.ffa.main.Main
+version: 1.0
+api-version: 1.13
+softdepend: [PlaceholderAPI]
+commands:
+   build:
+      description: Setzt dich in den Buildmode!
+   ffa:
+      description: Zeigt die FFA Befehle!
