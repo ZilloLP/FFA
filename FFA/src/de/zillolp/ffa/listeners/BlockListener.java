@@ -3,6 +3,7 @@ package de.zillolp.ffa.listeners;
 import java.util.Arrays;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -28,6 +29,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
+import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.xclasses.XMaterial;
@@ -161,14 +163,22 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
-				e.setCancelled(true);
-			}
-		}
-		if (e.getAction().equals(Action.PHYSICAL)) {
-			Block block = e.getClickedBlock();
-			if (block != null && block.getType() == XMaterial.FARMLAND.parseMaterial()) {
-				e.setCancelled(true);
+			if (!(playerprofil.getBuildmode())) {
+				Block block = e.getClickedBlock();
+				if (!(playerprofil.getIngame())) {
+					e.setCancelled(true);
+				} else if (block != null) {
+					Material type = block.getType();
+					if (e.getAction().equals(Action.PHYSICAL)) {
+						if (type == XMaterial.FARMLAND.parseMaterial()) {
+							e.setCancelled(true);
+						}
+					} else {
+						if (ConfigTools.getBlocked_blocks().contains(type)) {
+							e.setCancelled(true);
+						}
+					}
+				}
 			}
 		}
 	}
@@ -208,7 +218,6 @@ public class BlockListener implements Listener {
 			}
 		}
 	}
-	
 
 	@EventHandler
 	public void on(InventoryClickEvent e) {

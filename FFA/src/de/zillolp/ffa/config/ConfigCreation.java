@@ -53,6 +53,16 @@ public class ConfigCreation {
 			configutil.addDefaultInteger("Replace Time", 4);
 			configutil.addComment("Time until it is replaced with air in seconds");
 			configutil.addDefaultInteger("Air Time", 7);
+			configutil.addComment("Players cannot interact with the blocks on the list");
+			string_defaults.put("Protected Blocks.1", XMaterial.TRAPPED_CHEST.name());
+			string_defaults.put("Protected Blocks.2", XMaterial.CHEST.name());
+			string_defaults.put("Protected Blocks.3", XMaterial.FURNACE.name());
+			string_defaults.put("Protected Blocks.4", XMaterial.ENDER_CHEST.name());
+			string_defaults.put("Protected Blocks.5", XMaterial.DISPENSER.name());
+			string_defaults.put("Protected Blocks.6", XMaterial.DROPPER.name());
+			string_defaults.put("Protected Blocks.7", XMaterial.HOPPER.name());
+			configutil.addDefaultStrings(string_defaults);
+			string_defaults.clear();
 		}
 	}
 
