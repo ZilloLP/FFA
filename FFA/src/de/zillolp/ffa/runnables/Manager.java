@@ -26,20 +26,22 @@ public class Manager implements Runnable {
 	@Override
 	public void run() {
 		for (Player all : Bukkit.getOnlinePlayers()) {
-			Scoreboard scoreboard = all.getScoreboard();
-			if (scoreboard != null && scoreboard.getObjective(DisplaySlot.SIDEBAR) != null) {
-				if (ConfigTools.getScoreboard()) {
-					updateScoreboard(all);
-				} else {
-					scoreboard.clearSlot(DisplaySlot.SIDEBAR);
-				}
-			} else if (ConfigTools.getScoreboard()) {
-				setScoreboard(all);
-			}
 			PlayerProfil playerprofil = Main.playerprofiles.get(all);
 			if (playerprofil != null) {
+				boolean joined = playerprofil.getJoined();
+				Scoreboard scoreboard = all.getScoreboard();
+				if (scoreboard != null && scoreboard.getObjective(DisplaySlot.SIDEBAR) != null) {
+					if (ConfigTools.getScoreboard() && joined) {
+						updateScoreboard(all);
+					} else {
+						scoreboard.clearSlot(DisplaySlot.SIDEBAR);
+						scoreboard.clearSlot(DisplaySlot.BELOW_NAME);
+					}
+				} else if (ConfigTools.getScoreboard() && joined) {
+					setScoreboard(all);
+				}
 				ScoreboardTools scoreboardtools = playerprofil.getScoreboardtools();
-				if (ConfigTools.getActionbar()) {
+				if (ConfigTools.getActionbar() && joined) {
 					ActionBar.sendActionBar(all, scoreboardtools.getActionbar());
 				}
 			}

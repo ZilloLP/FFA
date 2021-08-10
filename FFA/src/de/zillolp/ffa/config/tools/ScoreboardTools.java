@@ -1,9 +1,8 @@
 package de.zillolp.ffa.config.tools;
 
-import java.io.File;
-
 import org.bukkit.entity.Player;
 
+import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.utils.StringUtil;
 
@@ -30,7 +29,7 @@ public class ScoreboardTools extends StringUtil {
 
 	public ScoreboardTools(Player p) {
 		this.p = p;
-		configutil = new ConfigUtil(new File("plugins/FFA/scoreboard.yml"));
+		configutil = ConfigCreation.manager.getNewConfig("scoreboard.yml");
 		ShowHearts = configutil.getBoolean("Show Hearts");
 		Hearts = configutil.getString("Hearts");
 		Title = configutil.getString("Scoreboard.Title");
@@ -53,7 +52,7 @@ public class ScoreboardTools extends StringUtil {
 	public boolean getShowHearts() {
 		return ShowHearts;
 	}
-	
+
 	public String getHearts() {
 		return replaceDefaults(Hearts);
 	}

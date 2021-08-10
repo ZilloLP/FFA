@@ -36,19 +36,14 @@ public class PlayerConnectionListener implements Listener {
 				}
 			}
 		}, 5);
-		e.setJoinMessage(LanguageTools.getJOIN_MESSAGE(p));
+		if (ConfigTools.getBungeecord()) {
+			e.setJoinMessage(LanguageTools.getJOIN_MESSAGE(p));
 
-		String arena = ArenaManager.active_arena;
-		if (arena != null) {
-			LocationTools locationtools = new LocationTools(arena);
-			p.getInventory().setArmorContents(null);
-			p.getInventory().clear();
-			p.setLevel(0);
-			p.setExp(0);
-			p.setFoodLevel(20);
-			p.setHealth(20);
-			p.setGameMode(ConfigTools.getGamemode());
-			p.teleport(locationtools.loadLocation("Spawn"));
+			String arena = ArenaManager.active_arena;
+			if (arena != null) {
+				LocationTools locationtools = new LocationTools(arena);
+				p.teleport(locationtools.loadLocation("Spawn"));
+			}
 		}
 	}
 
@@ -56,9 +51,21 @@ public class PlayerConnectionListener implements Listener {
 	public void on(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		if (playerprofiles.containsKey(p)) {
-			playerprofiles.get(p).UploadStats();
+			PlayerProfil playerprofil = playerprofiles.get(p);
+			if (ConfigTools.getBungeecord()) {
+				e.setQuitMessage(LanguageTools.getQUIT_MESSAGE(p));
+			}
+			if (playerprofil.getJoined()) {
+				p.getInventory().setContents(playerprofil.getInv());
+				p.getInventory().setArmorContents(playerprofil.getArmor());
+				p.setLevel(playerprofil.getLevel());
+				p.setExp(playerprofil.getExp());
+				p.setFoodLevel(playerprofil.getFoodLevel());
+				p.setHealth(playerprofil.getHealth());
+				p.setGameMode(playerprofil.getGamemode());
+			}
+			playerprofil.UploadStats();
 			playerprofiles.remove(p);
 		}
-		e.setQuitMessage(LanguageTools.getQUIT_MESSAGE(p));
 	}
 }

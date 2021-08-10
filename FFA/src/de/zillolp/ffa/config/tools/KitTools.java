@@ -1,22 +1,23 @@
 package de.zillolp.ffa.config.tools;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.profiles.KitProfil;
 import de.zillolp.ffa.utils.BukkitSerialization;
 import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.xclasses.NBTEditor;
 
 public class KitTools {
-	private static ConfigUtil configutil = new ConfigUtil(new File("plugins/FFA/kits.yml"));
+	private static ConfigUtil configutil = ConfigCreation.manager.getNewConfig("kits.yml");
 	private static ArrayList<KitProfil> kits = new ArrayList<>();
 	private String root;
 	private String arena;
@@ -39,8 +40,8 @@ public class KitTools {
 		KitProfil profil = new KitProfil(arena, inv, armor);
 		kits.remove(profil);
 		kits.add(profil);
-		configutil.setString(root + ".inv", BukkitSerialization.itemStackArrayToBase64(inv));
-		configutil.setString(root + ".armor", BukkitSerialization.itemStackArrayToBase64(armor));
+		configutil.set(root + ".inv", BukkitSerialization.itemStackArrayToBase64(inv));
+		configutil.set(root + ".armor", BukkitSerialization.itemStackArrayToBase64(armor));
 	}
 
 	public void loadKit(Player p) {
@@ -50,22 +51,26 @@ public class KitTools {
 			if (ConfigTools.getUnbreakable()) {
 				int i = 0;
 				for (ItemStack item : inv) {
-					if (item != null) {
+					if (item != null && item.getType() != Material.AIR) {
 						item = NBTEditor.set(item, (byte) 1, "Unbreakable");
 						ItemMeta itemmeta = item.getItemMeta();
-						itemmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-						item.setItemMeta(itemmeta);
+						if (itemmeta != null) {
+							itemmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+							item.setItemMeta(itemmeta);
+						}
 						inv[i] = item;
 					}
 					i++;
 				}
 				i = 0;
 				for (ItemStack item : armor) {
-					if (item != null) {
+					if (item != null && item.getType() != Material.AIR) {
 						item = NBTEditor.set(item, (byte) 1, "Unbreakable");
 						ItemMeta itemmeta = item.getItemMeta();
-						itemmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
-						item.setItemMeta(itemmeta);
+						if (itemmeta != null) {
+							itemmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+							item.setItemMeta(itemmeta);
+						}
 						armor[i] = item;
 					}
 					i++;
@@ -80,7 +85,7 @@ public class KitTools {
 
 	public static boolean isKit(String arena) {
 		boolean isKit = false;
-		ConfigurationSection section = configutil.getConfigsection("Kits");
+		ConfigurationSection section = configutil.getConfigurationSection("Kits");
 		if (section != null && section.getKeys(false).size() > 0 && section.getKeys(false).contains(arena)) {
 			isKit = true;
 		}
@@ -88,7 +93,7 @@ public class KitTools {
 	}
 
 	public static void loadKits() {
-		ConfigurationSection section = configutil.getConfigsection("Kits");
+		ConfigurationSection section = configutil.getConfigurationSection("Kits");
 		if (section != null && section.getKeys(false).size() > 0) {
 			for (String current : section.getKeys(false)) {
 				String arena = current;
@@ -108,13 +113,13 @@ public class KitTools {
 	}
 
 	public void resetKit() {
-		for (String key : configutil.getConfigsection(root).getKeys(false)) {
+		for (String key : configutil.getConfigurationSection(root).getKeys(false)) {
 			if (configutil.getString(root + "." + key) != null) {
-				configutil.setString(root + "." + key, null);
+				configutil.set(root + "." + key, null);
 			} else {
 				continue;
 			}
 		}
-		configutil.setString(root, null);
+		configutil.set(root, null);
 	}
 }

@@ -34,32 +34,43 @@ public class ArenaChanger implements Runnable {
 		case 4:
 		case 3:
 		case 2:
-			Bukkit.broadcastMessage(PREFIX + LanguageTools.getARENA_CHANGE_SECONDS());
+			sendBroadcast(PREFIX + LanguageTools.getARENA_CHANGE_SECONDS());
 			break;
 		case 1:
-			Bukkit.broadcastMessage(PREFIX + LanguageTools.getARENA_CHANGE_SECOND());
+			sendBroadcast(PREFIX + LanguageTools.getARENA_CHANGE_SECOND());
 			break;
 		case 0:
 			ArenaManager.loadArenas();
 			String arena = ArenaManager.active_arena;
-			LocationTools locationtools =  new LocationTools(arena);
+			LocationTools locationtools = new LocationTools(arena);
 			Location loc = locationtools.loadLocation("Spawn");
 			BlockPlaceListener.replaceAll();
 			for (Player all : Bukkit.getOnlinePlayers()) {
 				PlayerProfil playerprofil = Main.playerprofiles.get(all);
-				playerprofil.setKittools(new KitTools(arena));
-				all.getInventory().setArmorContents(null);
-				all.getInventory().clear();
-				all.setLevel(0);
-				all.setExp(0);
-				all.setFoodLevel(20);
-				all.setHealth(20);
-				all.setGameMode(ConfigTools.getGamemode());
-				all.teleport(loc);
+				if (playerprofil != null && playerprofil.getJoined()) {
+					playerprofil.setKittools(new KitTools(arena));
+					all.getInventory().setArmorContents(null);
+					all.getInventory().clear();
+					all.setLevel(0);
+					all.setExp(0);
+					all.setFoodLevel(20);
+					all.setHealth(20);
+					all.setGameMode(ConfigTools.getGamemode());
+					all.teleport(loc);
+				}
 			}
-			Bukkit.broadcastMessage(PREFIX + LanguageTools.getARENA_CHANGED());
+			sendBroadcast(PREFIX + LanguageTools.getARENA_CHANGED());
 			seconds = ConfigTools.getMapchangeTime() + 1;
 			break;
+		}
+	}
+
+	private void sendBroadcast(String message) {
+		for (Player all : Bukkit.getOnlinePlayers()) {
+			PlayerProfil playerprofil = Main.playerprofiles.get(all);
+			if (playerprofil != null && playerprofil.getJoined()) {
+				all.sendMessage(message);
+			}
 		}
 	}
 

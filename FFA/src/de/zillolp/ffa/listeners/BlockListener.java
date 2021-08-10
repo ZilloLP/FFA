@@ -3,6 +3,7 @@ package de.zillolp.ffa.listeners;
 import java.util.Arrays;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
@@ -15,6 +16,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityInteractEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
@@ -30,7 +32,9 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 import de.zillolp.ffa.config.tools.ConfigTools;
+import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
+import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.xclasses.XMaterial;
 
@@ -44,7 +48,7 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode())) {
+			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
 			}
 		}
@@ -55,7 +59,7 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
 			}
 		}
@@ -66,7 +70,7 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode())) {
+			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
 			}
 		}
@@ -77,7 +81,7 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
 			}
 		}
@@ -85,7 +89,15 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(EntityDamageByBlockEvent e) {
-		e.setCancelled(true);
+		LocationTools locationtools = new LocationTools(ArenaManager.active_arena);
+		Location loc = locationtools.loadLocation("Spawn");
+		if (loc != null) {
+			if (loc.getWorld().getName().equalsIgnoreCase(e.getEntity().getWorld().getName())) {
+				if (e.getCause() != DamageCause.VOID) {
+					e.setCancelled(true);
+				}
+			}
+		}
 	}
 
 	@EventHandler
@@ -94,7 +106,7 @@ public class BlockListener implements Listener {
 			Player p = (Player) e.getEntity();
 			PlayerProfil playerprofil = Main.playerprofiles.get(p);
 			if (playerprofil != null) {
-				if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
 				}
 			}
@@ -103,7 +115,7 @@ public class BlockListener implements Listener {
 			Player p = (Player) e.getDamager();
 			PlayerProfil playerprofil = Main.playerprofiles.get(p);
 			if (playerprofil != null) {
-				if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
 				}
 			}
@@ -116,7 +128,10 @@ public class BlockListener implements Listener {
 			Player p = (Player) e.getEntity();
 			PlayerProfil playerprofil = Main.playerprofiles.get(p);
 			if (playerprofil != null) {
-				if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
+					e.setCancelled(true);
+				}
+				if (!(ConfigTools.getFalldamage()) && e.getCause() == DamageCause.FALL) {
 					e.setCancelled(true);
 				}
 			}
@@ -129,7 +144,7 @@ public class BlockListener implements Listener {
 			Player p = (Player) e.getEntity();
 			PlayerProfil playerprofil = Main.playerprofiles.get(p);
 			if (playerprofil != null) {
-				if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
 				}
 			}
@@ -141,7 +156,7 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
 			}
 		}
@@ -152,7 +167,7 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
 			}
 		}
@@ -163,7 +178,7 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode())) {
+			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				Block block = e.getClickedBlock();
 				if (!(playerprofil.getIngame())) {
 					e.setCancelled(true);
@@ -185,7 +200,13 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(FoodLevelChangeEvent e) {
-		e.setCancelled(true);
+		LocationTools locationtools = new LocationTools(ArenaManager.active_arena);
+		Location loc = locationtools.loadLocation("Spawn");
+		if (loc != null) {
+			if (loc.getWorld().getName().equalsIgnoreCase(e.getEntity().getWorld().getName())) {
+				e.setCancelled(true);
+			}
+		}
 	}
 
 	@EventHandler
@@ -194,7 +215,7 @@ public class BlockListener implements Listener {
 			Player p = (Player) e.getEntity().getShooter();
 			PlayerProfil playerprofil = Main.playerprofiles.get(p);
 			if (playerprofil != null) {
-				if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
 				}
 			}
@@ -203,8 +224,14 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(CreatureSpawnEvent e) {
-		if (!(e.getEntity() instanceof Arrow)) {
-			e.setCancelled(true);
+		LocationTools locationtools = new LocationTools(ArenaManager.active_arena);
+		Location loc = locationtools.loadLocation("Spawn");
+		if (loc != null) {
+			if (loc.getWorld().getName().equalsIgnoreCase(e.getLocation().getWorld().getName())) {
+				if (!(e.getEntity() instanceof Arrow)) {
+					e.setCancelled(true);
+				}
+			}
 		}
 	}
 
@@ -213,7 +240,7 @@ public class BlockListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode())) {
+			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
 			}
 		}
@@ -224,7 +251,7 @@ public class BlockListener implements Listener {
 		Player p = (Player) e.getWhoClicked();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			if (!(playerprofil.getBuildmode() || playerprofil.getIngame())) {
+			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
 			}
 		}
@@ -248,8 +275,14 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(WeatherChangeEvent e) {
-		if (block_weather) {
-			e.setCancelled(true);
+		LocationTools locationtools = new LocationTools(ArenaManager.active_arena);
+		Location loc = locationtools.loadLocation("Spawn");
+		if (loc != null) {
+			if (loc.getWorld().getName().equalsIgnoreCase(e.getWorld().getName())) {
+				if (block_weather) {
+					e.setCancelled(true);
+				}
+			}
 		}
 	}
 

@@ -1,6 +1,5 @@
 package de.zillolp.ffa.stats;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,8 +13,10 @@ import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.utils.ConfigUtil;
+import de.zillolp.ffa.utils.ConfigManager;
 
 public class MySQL {
+	private ConfigManager manager;
 	private String PREFIX = LanguageTools.getPREFIX();
 	private boolean english = ConfigTools.getEnglish();
 	private ConfigUtil configutil;
@@ -29,17 +30,16 @@ public class MySQL {
 	public Boolean connected;
 
 	public MySQL() {
-		configutil = new ConfigUtil(new File("plugins/FFA/mysql.yml"));
+		manager = new ConfigManager();
+		configutil = manager.getNewConfig("mysql.yml", new String[] { "FFA" });
 	}
 
 	public void load() {
-		configutil.createConfig();
-		configutil.addComment("MySQL data");
-		configutil.addDefaultString("Host", "localhost");
-		configutil.addDefaultString("Port", "3306");
-		configutil.addDefaultString("Database", "FFA");
-		configutil.addDefaultString("User", "root");
-		configutil.addDefaultString("Password", "123+");
+		configutil.setDefault("Host", "localhost", "MySQL data");
+		configutil.setDefault("Port", "3306");
+		configutil.setDefault("Database", "FFA");
+		configutil.setDefault("User", "root");
+		configutil.setDefault("Password", "123+");
 		HOST = configutil.getString("Host");
 		PORT = configutil.getString("Port");
 		DATABASE = configutil.getString("Database");

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
 
 import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
@@ -21,13 +22,14 @@ import de.zillolp.ffa.xclasses.XMaterial;
 public class BlockPlaceListener implements Listener {
 	private static ArrayList<Location> blocks = new ArrayList<>();
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void on(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
 			String PREFIX = LanguageTools.getPREFIX();
-			if (!(playerprofil.getBuildmode())) {
+			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				if (playerprofil.getIngame()) {
 					String arena = ArenaManager.active_arena;
 					LocationTools locationtools = new LocationTools(arena);
@@ -40,6 +42,12 @@ public class BlockPlaceListener implements Listener {
 								blocks.add(loc);
 								replaceBlock(block, ConfigTools.getReplaceType(), ConfigTools.getReplaceTime(), false);
 								replaceBlock(block, XMaterial.AIR, ConfigTools.getAirTime(), true);
+								if (ConfigTools.getInfiniteblocks()) {
+									ItemStack item = e.getItemInHand();
+									if (item.getAmount() - 1 <= 0) {
+										p.getInventory().setItemInHand(item);
+									}
+								}
 							} else {
 								p.sendMessage(PREFIX + LanguageTools.getBUILD_PROTECTION());
 								e.setCancelled(true);

@@ -1,11 +1,11 @@
 package de.zillolp.ffa.map;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.Random;
 
 import org.bukkit.configuration.ConfigurationSection;
 
+import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.KitTools;
 import de.zillolp.ffa.config.tools.LocationTools;
@@ -54,8 +54,8 @@ public class ArenaManager {
 	}
 
 	public static void checkArenas() {
-		ConfigUtil configutil = new ConfigUtil(new File("plugins/FFA/locations.yml"));
-		ConfigurationSection section = configutil.getConfigsection("Arenas");
+		ConfigUtil configutil = ConfigCreation.manager.getNewConfig("locations.yml");
+		ConfigurationSection section = configutil.getConfigurationSection("Arenas");
 		names = new LinkedList<>();
 		if (section != null) {
 			if (section.getKeys(false).size() > 0) {

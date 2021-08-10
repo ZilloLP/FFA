@@ -22,8 +22,10 @@ public class AnvilEventOld implements Listener {
 				ItemStack craftItem = inv.getItem(2);
 				if (craftItem != null && craftItem.getType() != Material.AIR) {
 					ItemMeta itemmeta = craftItem.getItemMeta();
-					itemmeta.setDisplayName(StringUtil.replaceDefaults(itemmeta.getDisplayName()));
-					craftItem.setItemMeta(itemmeta);
+					if (itemmeta != null && itemmeta.getDisplayName() != null) {
+						itemmeta.setDisplayName(StringUtil.replaceDefaults(itemmeta.getDisplayName()));
+						craftItem.setItemMeta(itemmeta);
+					}
 				}
 			}
 		}

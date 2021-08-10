@@ -25,6 +25,7 @@ public class InventorySetter extends ItemCreator {
 	public static String TEAMS_NOT_ALLOWED;
 	public static String BLOCKS_ACTIVATED;
 	public static String BLOCKS_DEACTIVATED;
+	public static String SET_SIGN;
 	public static String SET_UPPERCORNER;
 	public static String SET_SPAWN;
 	public static String SET_BUTTOMCORNER;
@@ -38,6 +39,7 @@ public class InventorySetter extends ItemCreator {
 			TEAMS_NOT_ALLOWED = "§7Teams§8: §cNot allowed";
 			BLOCKS_ACTIVATED = "§7Place Blocks §8: §aActivated";
 			BLOCKS_DEACTIVATED = "§7Place Blocks §8: §cDeactivated";
+			SET_SIGN = "Set join sign";
 			SET_UPPERCORNER = "§7Set Upper Corner";
 			SET_SPAWN = "§7Set Spawn";
 			SET_BUTTOMCORNER = "§7Set Buttom Corner";
@@ -48,6 +50,7 @@ public class InventorySetter extends ItemCreator {
 			TEAMS_NOT_ALLOWED = "§7Teams§8: §cVerboten";
 			BLOCKS_ACTIVATED = "§7Blöcke Platzieren§8: §aAktiviert";
 			BLOCKS_DEACTIVATED = "§7Blöcke Platzieren§8: §cDeaktiviert";
+			SET_SIGN = "§7Join Schild setzen";
 			SET_UPPERCORNER = "§7Obere Ecke setzen";
 			SET_SPAWN = "§7Spawn setzen";
 			SET_BUTTOMCORNER = "§7Untere Ecke setzen";
@@ -132,6 +135,19 @@ public class InventorySetter extends ItemCreator {
 		inv.setItem(10, kit);
 		inv.setItem(11, teams);
 		inv.setItem(12, blocks);
+
+		if (!(ConfigTools.getBungeecord())) {
+			ItemStack sign;
+			if (locationtools.isLocation("Sign")) {
+				lore.add(SET);
+				sign = createItem(XMaterial.OAK_SIGN.parseItem(), SET_SIGN, lore, true);
+			} else {
+				lore.add(NOT_SET);
+				sign = createItem(XMaterial.OAK_SIGN.parseItem(), SET_SIGN, lore);
+			}
+			lore.clear();
+			inv.setItem(13, sign);
+		}
 
 		ItemStack left;
 		if (locationtools.isLocation("Uppercorner")) {

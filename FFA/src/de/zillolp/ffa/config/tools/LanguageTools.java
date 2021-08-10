@@ -1,9 +1,8 @@
 package de.zillolp.ffa.config.tools;
 
-import java.io.File;
-
 import org.bukkit.entity.Player;
 
+import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.utils.StringUtil;
 
@@ -25,7 +24,7 @@ public class LanguageTools extends StringUtil {
 	private static String ARENA_CHANGED;
 
 	public LanguageTools() {
-		configutil = new ConfigUtil(new File("plugins/FFA/language.yml"));
+		configutil = ConfigCreation.manager.getNewConfig("language.yml");
 		PREFIX = replaceDefaults(configutil.getString("PREFIX"));
 		NO_PERMISSION = replaceDefaults(configutil.getString("NO_PERMISSION"));
 		ONLY_PLAYER = replaceDefaults(configutil.getString("ONLY_PLAYER"));
@@ -93,7 +92,7 @@ public class LanguageTools extends StringUtil {
 	public static String getARENA_CHANGE_SECOND() {
 		return replaceSeconds(ARENA_CHANGE_SECOND);
 	}
-	
+
 	public static String getARENA_CHANGED() {
 		return replaceMap(ARENA_CHANGED);
 	}

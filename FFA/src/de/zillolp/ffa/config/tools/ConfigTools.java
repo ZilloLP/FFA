@@ -1,16 +1,17 @@
 package de.zillolp.ffa.config.tools;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 
+import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.xclasses.XMaterial;
 
 public class ConfigTools {
 	private ConfigUtil configutil;
+	private static boolean Bungeecord;
 	private static boolean MySQL;
 	private static boolean English;
 	private static boolean Scoreboard;
@@ -19,14 +20,18 @@ public class ConfigTools {
 	private static GameMode Gamemode;
 	private static boolean Mapchange;
 	private static int MapchangeTime;
+	private static boolean Falldamage;
 	private static int BuildingProtection;
 	private static XMaterial ReplaceType;
 	private static int ReplaceTime;
 	private static int AirTime;
+	private static boolean Infiniteblocks;
 	private static ArrayList<Material> blocked_blocks;
 
 	public ConfigTools() {
-		this.configutil = new ConfigUtil(new File("plugins/FFA/config.yml"));
+		this.configutil = ConfigCreation.manager.getNewConfig("config.yml");
+//		Bungeecord = configutil.getBoolean("Bungeecord");
+		Bungeecord = true;
 		MySQL = configutil.getBoolean("MySQL");
 		English = configutil.getBoolean("English");
 		Scoreboard = configutil.getBoolean("Scoreboard");
@@ -35,19 +40,25 @@ public class ConfigTools {
 		Gamemode = GameMode.valueOf(configutil.getString("Gamemode"));
 		Mapchange = configutil.getBoolean("Mapchange");
 		MapchangeTime = configutil.getInt("Mapchange Time") * 60;
+		Falldamage = configutil.getBoolean("Falldamage");
 		BuildingProtection = configutil.getInt("Building Protection");
 		ReplaceType = XMaterial.valueOf(configutil.getString("Replace Type"));
 		ReplaceTime = configutil.getInt("Replace Time") * 20;
 		AirTime = configutil.getInt("Air Time") * 20;
+		Infiniteblocks = configutil.getBoolean("Infinite blocks");
 		blocked_blocks = new ArrayList<>();
 		String section = "Protected Blocks";
-		for (String block : configutil.getConfig().getConfigurationSection(section).getKeys(false)) {
+		for (String block : configutil.getConfigurationSection(section).getKeys(false)) {
 			Material blocked_block = XMaterial.valueOf(configutil.getString(section + "." + block).toUpperCase())
 					.parseMaterial();
 			if (!(blocked_blocks.contains(blocked_block))) {
 				blocked_blocks.add(blocked_block);
 			}
 		}
+	}
+
+	public static boolean getBungeecord() {
+		return Bungeecord;
 	}
 
 	public static boolean getMySQL() {
@@ -82,6 +93,10 @@ public class ConfigTools {
 		return MapchangeTime;
 	}
 
+	public static boolean getFalldamage() {
+		return Falldamage;
+	}
+
 	public static int getBuildingProtection() {
 		return BuildingProtection;
 	}
@@ -98,10 +113,14 @@ public class ConfigTools {
 		return AirTime;
 	}
 
+	public static boolean getInfiniteblocks() {
+		return Infiniteblocks;
+	}
+
 	public static void setMapchange(boolean mapchange) {
 		Mapchange = mapchange;
 	}
-	
+
 	public static ArrayList<Material> getBlocked_blocks() {
 		return blocked_blocks;
 	}

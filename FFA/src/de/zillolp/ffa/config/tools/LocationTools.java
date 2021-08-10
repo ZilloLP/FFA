@@ -1,16 +1,15 @@
 package de.zillolp.ffa.config.tools;
 
-import java.io.File;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 
+import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.utils.ConfigUtil;
 
 public class LocationTools {
-	private ConfigUtil configutil = new ConfigUtil(new File("plugins/FFA/locations.yml"));
+	private ConfigUtil configutil = ConfigCreation.manager.getNewConfig("locations.yml");
 	private String arena;
 	private Location loc;
 
@@ -50,25 +49,25 @@ public class LocationTools {
 	}
 
 	public void saveArena() {
-		configutil.setBoolean(arena + ".Teams", false);
-		configutil.setBoolean(arena + ".Build", true);
+		configutil.set(arena + ".Teams", false);
+		configutil.set(arena + ".Build", true);
 	}
 
 	public void saveLocation(String name) {
-		configutil.setString(arena + "." + name + ".World", loc.getWorld().getName());
-		configutil.setDouble(arena + "." + name + ".X", loc.getX());
-		configutil.setDouble(arena + "." + name + ".Y", loc.getY());
-		configutil.setDouble(arena + "." + name + ".Z", loc.getZ());
-		configutil.setDouble(arena + "." + name + ".Yaw", loc.getYaw());
-		configutil.setDouble(arena + "." + name + ".Pitch", loc.getPitch());
+		configutil.set(arena + "." + name + ".World", loc.getWorld().getName());
+		configutil.set(arena + "." + name + ".X", loc.getX());
+		configutil.set(arena + "." + name + ".Y", loc.getY());
+		configutil.set(arena + "." + name + ".Z", loc.getZ());
+		configutil.set(arena + "." + name + ".Yaw", loc.getYaw());
+		configutil.set(arena + "." + name + ".Pitch", loc.getPitch());
 	}
 
 	public void setTeams(boolean teams) {
-		configutil.setBoolean(arena + ".Teams", teams);
+		configutil.set(arena + ".Teams", teams);
 	}
-	
+
 	public void setBuild(boolean build) {
-		configutil.setBoolean(arena + ".Build", build);
+		configutil.set(arena + ".Build", build);
 	}
 
 	public Location loadLocation(String name) {
@@ -89,7 +88,7 @@ public class LocationTools {
 	public boolean getTeams() {
 		return configutil.getBoolean(arena + ".Teams");
 	}
-	
+
 	public boolean getBuild() {
 		return configutil.getBoolean(arena + ".Build");
 	}
@@ -114,12 +113,12 @@ public class LocationTools {
 		if (section != null) {
 			for (String key : section.getKeys(false)) {
 				if (configutil.getString(arena + "." + key) != null) {
-					configutil.setString(arena + "." + key, null);
+					configutil.set(arena + "." + key, null);
 				} else {
 					continue;
 				}
 			}
 		}
-		configutil.setString(arena, null);
+		configutil.set(arena, null);
 	}
 }

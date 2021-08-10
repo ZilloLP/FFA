@@ -66,12 +66,7 @@ public class Main extends JavaPlugin {
 		disabled = true;
 		if (DatenManager.getConnected()) {
 			BlockPlaceListener.replaceAll();
-			for (Player all : Bukkit.getOnlinePlayers()) {
-				PlayerProfil playerprofil = playerprofiles.get(all);
-				if (playerprofil != null) {
-					playerprofil.UploadStats();
-				}
-			}
+			uploadPlayers();
 			if (!(DatenManager.getStatus())) {
 				DatenManager.getSqlite().close();
 			} else {
@@ -124,12 +119,7 @@ public class Main extends JavaPlugin {
 	}
 
 	public static void reload() {
-		for (Player all : Bukkit.getOnlinePlayers()) {
-			PlayerProfil playerprofil = playerprofiles.get(all);
-			if (playerprofil != null) {
-				playerprofil.UploadStats();
-			}
-		}
+		uploadPlayers();
 		BlockPlaceListener.replaceAll();
 		Manager.stop();
 		new ConfigTools();
@@ -146,15 +136,26 @@ public class Main extends JavaPlugin {
 		createPlayers();
 	}
 
+	private static void uploadPlayers() {
+		for (Player all : Bukkit.getOnlinePlayers()) {
+			if (playerprofiles.containsKey(all)) {
+				PlayerProfil playerprofil = playerprofiles.get(all);
+				if (playerprofil.getJoined()) {
+					all.getInventory().setContents(playerprofil.getInv());
+					all.getInventory().setArmorContents(playerprofil.getArmor());
+					all.setLevel(playerprofil.getLevel());
+					all.setExp(playerprofil.getExp());
+					all.setFoodLevel(playerprofil.getFoodLevel());
+					all.setHealth(playerprofil.getHealth());
+					all.setGameMode(playerprofil.getGamemode());
+				}
+				playerprofil.UploadStats();
+			}
+		}
+	}
+
 	private static void createPlayers() {
 		for (Player all : Bukkit.getOnlinePlayers()) {
-			all.getInventory().setArmorContents(null);
-			all.getInventory().clear();
-			all.setLevel(0);
-			all.setExp(0);
-			all.setFoodLevel(20);
-			all.setHealth(20);
-			all.setGameMode(ConfigTools.getGamemode());
 			DatenManager.createPlayer(all);
 			Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
 				@Override
@@ -164,10 +165,12 @@ public class Main extends JavaPlugin {
 					}
 				}
 			}, 5);
-			String arena = ArenaManager.active_arena;
-			if (arena != null) {
-				LocationTools locationtools = new LocationTools(arena);
-				all.teleport(locationtools.loadLocation("Spawn"));
+			if (ConfigTools.getBungeecord()) {
+				String arena = ArenaManager.active_arena;
+				if (arena != null) {
+					LocationTools locationtools = new LocationTools(arena);
+					all.teleport(locationtools.loadLocation("Spawn"));
+				}
 			}
 		}
 	}

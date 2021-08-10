@@ -1,6 +1,5 @@
 package de.zillolp.ffa.commands;
 
-import java.io.File;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
@@ -11,6 +10,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
+import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.config.tools.LocationTools;
@@ -50,8 +50,8 @@ public class FFACommand implements CommandExecutor {
 							p.sendMessage(PREFIX + "§7Plugin wurde §aerfolgreich §7neu geladen!");
 						}
 					} else if (args[0].equalsIgnoreCase("arenas")) {
-						ConfigUtil configutil = new ConfigUtil(new File("plugins/FFA/locations.yml"));
-						ConfigurationSection configsection = configutil.getConfigsection("Arenas");
+						ConfigUtil configutil = ConfigCreation.manager.getNewConfig("locations.yml");
+						ConfigurationSection configsection = configutil.getConfigurationSection("Arenas");
 						if (configsection != null && configsection.getKeys(false).size() > 0) {
 							if (english) {
 								p.sendMessage("§6All arenas:");

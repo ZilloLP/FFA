@@ -21,34 +21,36 @@ public class RespawnListener implements Listener {
 		Player p = e.getEntity().getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			String PREFIX = LanguageTools.getPREFIX();
-			e.setDeathMessage(null);
-			e.setDroppedExp(0);
-			e.getDrops().clear();
-			Respawn(p, 1);
-			if (p.getKiller() != null) {
-				Player k = p.getKiller();
-				PlayerProfil killerprofil = Main.playerprofiles.get(k);
-				if (killerprofil != null) {
-					k.sendMessage(PREFIX + LanguageTools.getKILLED_PLAYER(p, k));
-					p.sendMessage(PREFIX + LanguageTools.getDIED_BY_PLAYER(p, k));
-					killerprofil.addKillstreak(1L);
-					killerprofil.addKills(1L);
-					Long killstreak = killerprofil.getKillstreak();
-					if (killstreak == 3 || killstreak % 5 == 0) {
-						Bukkit.broadcastMessage(PREFIX + LanguageTools.getKILLSTREAK_WIN(k));
+			if (!(playerprofil.getBuildmode()) && playerprofil.getIngame() && playerprofil.getJoined()) {
+				String PREFIX = LanguageTools.getPREFIX();
+				e.setDeathMessage(null);
+				e.setDroppedExp(0);
+				e.getDrops().clear();
+				Respawn(p, 1);
+				if (p.getKiller() != null) {
+					Player k = p.getKiller();
+					PlayerProfil killerprofil = Main.playerprofiles.get(k);
+					if (killerprofil != null) {
+						k.sendMessage(PREFIX + LanguageTools.getKILLED_PLAYER(p, k));
+						p.sendMessage(PREFIX + LanguageTools.getDIED_BY_PLAYER(p, k));
+						killerprofil.addKillstreak(1L);
+						killerprofil.addKills(1L);
+						Long killstreak = killerprofil.getKillstreak();
+						if (killstreak == 3 || killstreak % 5 == 0) {
+							Bukkit.broadcastMessage(PREFIX + LanguageTools.getKILLSTREAK_WIN(k));
+						}
+						k.setHealth(20);
 					}
-					k.setHealth(20);
+				} else {
+					p.sendMessage(PREFIX + LanguageTools.getPLAYER_DIED());
 				}
-			} else {
-				p.sendMessage(PREFIX + LanguageTools.getPLAYER_DIED());
+				Long killstreak = playerprofil.getKillstreak();
+				if (killstreak >= 3) {
+					p.sendMessage(PREFIX + LanguageTools.getKILLSTREAK_LOSE(p));
+				}
+				playerprofil.addDeaths(1L);
+				playerprofil.setKillstreak(0L);
 			}
-			Long killstreak = playerprofil.getKillstreak();
-			if (killstreak >= 3) {
-				p.sendMessage(PREFIX + LanguageTools.getKILLSTREAK_LOSE(p));
-			}
-			playerprofil.addDeaths(1L);
-			playerprofil.setKillstreak(0L);
 		}
 	}
 
@@ -58,24 +60,26 @@ public class RespawnListener implements Listener {
 		Player p = e.getPlayer();
 		PlayerProfil playerprofil = Main.playerprofiles.get(p);
 		if (playerprofil != null) {
-			playerprofil.setIngame(false);
-			p.getInventory().clear();
-			p.getInventory().setArmorContents(null);
-			p.setLevel(0);
-			p.setExp(0);
-			p.setFoodLevel(20);
-			p.setHealth(20);
-			String arena = ArenaManager.active_arena;
-			if (arena != null) {
-				LocationTools locationtools = new LocationTools(arena);
-				Location loc = locationtools.loadLocation("Spawn");
-				e.setRespawnLocation(loc);
-			}
-			for (Player all : Bukkit.getOnlinePlayers()) {
-				all.hidePlayer(p);
-				all.showPlayer(p);
-				p.hidePlayer(all);
-				p.showPlayer(all);
+			if (!(playerprofil.getBuildmode()) && playerprofil.getIngame() && playerprofil.getJoined()) {
+				playerprofil.setIngame(false);
+				p.getInventory().clear();
+				p.getInventory().setArmorContents(null);
+				p.setLevel(0);
+				p.setExp(0);
+				p.setFoodLevel(20);
+				p.setHealth(20);
+				String arena = ArenaManager.active_arena;
+				if (arena != null) {
+					LocationTools locationtools = new LocationTools(arena);
+					Location loc = locationtools.loadLocation("Spawn");
+					e.setRespawnLocation(loc);
+				}
+				for (Player all : Bukkit.getOnlinePlayers()) {
+					all.hidePlayer(p);
+					all.showPlayer(p);
+					p.hidePlayer(all);
+					p.showPlayer(all);
+				}
 			}
 		}
 	}

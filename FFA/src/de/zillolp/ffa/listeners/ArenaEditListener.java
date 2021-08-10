@@ -114,6 +114,14 @@ public class ArenaEditListener implements Listener {
 							}
 						}
 						InventorySetter.setArenainv(p, invprofil.getArenainv());
+					} else if (itemtype == XMaterial.OAK_SIGN.parseMaterial()
+							&& itemname.equalsIgnoreCase(InventorySetter.SET_SIGN)) {
+						playerprofil.setSetsign(true);
+						if (english) {
+							p.sendMessage(PREFIX + "§7You set the §eSpawn §7for the arena §b" + arena + "§7.");
+						} else {
+							p.sendMessage(PREFIX + "§7Mache Rechtsklick auf ein §6Schild§7.");
+						}
 					} else if (itemtype == XMaterial.PLAYER_HEAD.parseMaterial()
 							&& itemname.equalsIgnoreCase(InventorySetter.SET_UPPERCORNER)) {
 						LocationTools locationtools = new LocationTools(arena, p.getLocation());
