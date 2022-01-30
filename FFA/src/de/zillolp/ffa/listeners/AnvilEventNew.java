@@ -13,11 +13,11 @@ public class AnvilEventNew implements Listener {
 
 	@EventHandler
 	public void on(PrepareAnvilEvent e) {
-		AnvilInventory inv = e.getInventory();
+		AnvilInventory inventory = e.getInventory();
 		ItemStack result = e.getResult();
-		if (result != null && result.hasItemMeta() && inv.getRenameText() != "") {
+		if (result != null && result.hasItemMeta() && inventory.getRenameText() != "") {
 			ItemMeta resultMeta = result.getItemMeta();
-			resultMeta.setDisplayName(StringUtil.replaceDefaults(inv.getRenameText()));
+			resultMeta.setDisplayName(StringUtil.replaceDefaults(inventory.getRenameText()));
 			result.setItemMeta(resultMeta);
 		}
 	}
