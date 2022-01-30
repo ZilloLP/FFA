@@ -17,7 +17,7 @@ public class GameChangeListener implements Listener {
 	@EventHandler
 	public void on(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				String arena = ArenaManager.active_arena;

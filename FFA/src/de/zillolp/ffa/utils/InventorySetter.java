@@ -17,7 +17,7 @@ import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.xclasses.XMaterial;
 
 public class InventorySetter extends ItemCreator {
-	private static HashMap<Player, PlayerProfil> playerprofiles = Main.playerprofiles;
+	private static HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
 	private static String texture = "http://textures.minecraft.net/texture/";
 	public static String TITLE;
 	public static String SET_KIT;

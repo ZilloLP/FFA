@@ -28,7 +28,7 @@ public class BuildCommand implements CommandExecutor {
 			Player p = (Player) sender;
 			if (p.hasPermission(PermissionTools.getADMIN_PERMISSION())) {
 				if (args.length == 0) {
-					PlayerProfil profil = Main.playerprofiles.get(p);
+					PlayerProfil profil = Main.getInstance().playerprofiles.get(p);
 					String name = p.getName();
 					if (profil.getBuildmode()) {
 						profil.setBuildmode(false);
@@ -56,7 +56,7 @@ public class BuildCommand implements CommandExecutor {
 				} else if (args.length == 1) {
 					Player k = Bukkit.getPlayer(args[0]);
 					if (Bukkit.getOnlinePlayers().contains(k)) {
-						PlayerProfil profil = Main.playerprofiles.get(k);
+						PlayerProfil profil = Main.getInstance().playerprofiles.get(k);
 						String name = k.getName();
 						if (profil.getBuildmode()) {
 							if (english) {

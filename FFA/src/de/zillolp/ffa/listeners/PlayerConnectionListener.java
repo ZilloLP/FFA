@@ -18,13 +18,13 @@ import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.stats.DatenManager;
 
 public class PlayerConnectionListener implements Listener {
-	private HashMap<Player, PlayerProfil> playerprofiles = Main.playerprofiles;
+	private HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
 
 	@EventHandler
 	public void on(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		DatenManager.createPlayer(p);
-		Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().runTaskLater(Main.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {

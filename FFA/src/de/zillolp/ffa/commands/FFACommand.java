@@ -23,8 +23,8 @@ import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.utils.InventorySetter;
 
 public class FFACommand implements CommandExecutor {
-	private HashMap<Player, PlayerProfil> playerprofiles = Main.playerprofiles;
-	private HashMap<Player, InventoryProfil> invprofiles = Main.invprofiles;
+	private HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
+	private HashMap<Player, InventoryProfil> invprofiles = Main.getInstance().invprofiles;
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -37,13 +37,13 @@ public class FFACommand implements CommandExecutor {
 			} else if (args.length == 1 && args[0].equalsIgnoreCase("info")) {
 				p.sendMessage("§6§lInfos zum Plugin:");
 				p.sendMessage("§7Plugin Name: §eFFA");
-				p.sendMessage("§7Plugin Version: §e" + Main.plugin.getDescription().getVersion());
+				p.sendMessage("§7Plugin Version: §e" + Main.getInstance().getDescription().getVersion());
 				p.sendMessage("§7Author: §eZilloLP");
 				p.sendMessage("§7Discord: §ehttps://discord.gg/NBs27JK");
 			} else if (p.hasPermission(PermissionTools.getADMIN_PERMISSION())) {
 				if (args.length == 1) {
 					if (args[0].equalsIgnoreCase("reload")) {
-						Main.reload();
+						Main.getInstance().reload();
 						if (english) {
 							p.sendMessage(PREFIX + "§7The plugin was reloaded §asuccesful§7!");
 						} else {
@@ -168,7 +168,7 @@ public class FFACommand implements CommandExecutor {
 				p.sendMessage(PREFIX + LanguageTools.getNO_PERMISSION());
 			}
 		} else if (args[0].equalsIgnoreCase("reload")) {
-			Main.reload();
+			Main.getInstance().reload();
 			if (english) {
 				Bukkit.getConsoleSender().sendMessage(PREFIX + "§7The plugin was reloaded §asuccesful§7!");
 			} else {

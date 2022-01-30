@@ -20,13 +20,13 @@ public class Manager implements Runnable {
 
 	@SuppressWarnings("deprecation")
 	public Manager() {
-		sched = Bukkit.getScheduler().scheduleAsyncRepeatingTask(Main.plugin, this, 0, 20);
+		sched = Bukkit.getScheduler().scheduleAsyncRepeatingTask(Main.getInstance(), this, 0, 20);
 	}
 
 	@Override
 	public void run() {
 		for (Player all : Bukkit.getOnlinePlayers()) {
-			PlayerProfil playerprofil = Main.playerprofiles.get(all);
+			PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(all);
 			if (playerprofil != null) {
 				boolean joined = playerprofil.getJoined();
 				Scoreboard scoreboard = all.getScoreboard();
@@ -50,11 +50,11 @@ public class Manager implements Runnable {
 
 	@SuppressWarnings("deprecation")
 	public static void setScoreboard(Player p) {
-		Bukkit.getScheduler().runTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().runTask(Main.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {
-				PlayerProfil playerprofil = Main.playerprofiles.get(p);
+				PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 				if (playerprofil != null) {
 					ScoreboardTools scoreboardtools = playerprofil.getScoreboardtools();
 					ScoreboardManager scoreboardmanager = Bukkit.getScoreboardManager();
@@ -154,7 +154,7 @@ public class Manager implements Runnable {
 
 	@SuppressWarnings("deprecation")
 	private void updateScoreboard(Player p) {
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			ScoreboardTools scoreboardtools = playerprofil.getScoreboardtools();
 			Scoreboard scoreboard = p.getScoreboard();

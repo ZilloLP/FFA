@@ -12,8 +12,8 @@ import org.bukkit.Bukkit;
 import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.utils.ConfigManager;
+import de.zillolp.ffa.utils.ConfigUtil;
 
 public class MySQL {
 	private ConfigManager manager;
@@ -67,7 +67,7 @@ public class MySQL {
 						PREFIX + "§cDie Verbindung mit MySQL ist fehlgeschlagen! §4Fehler: " + e.getMessage());
 			}
 			connected = false;
-			Main.disabled = false;
+			Main.getInstance().disabled = false;
 		}
 	}
 
@@ -91,12 +91,12 @@ public class MySQL {
 						PREFIX + "§cDie Verbindung mit MySQL konnte nicht beendet werden! §4Fehler: " + e.getMessage());
 			}
 			connected = false;
-			Main.disabled = false;
+			Main.getInstance().disabled = false;
 		}
 	}
 
 	public void update(String qre) {
-		if (!(Main.disabled)) {
+		if (!(Main.getInstance().disabled)) {
 			CompletableFuture.runAsync(() -> {
 				if (con != null) {
 					try {

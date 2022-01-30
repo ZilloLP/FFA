@@ -38,15 +38,15 @@ import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.xclasses.XMaterial;
 
-@SuppressWarnings("deprecation")
 public class BlockListener implements Listener {
+	
 	private boolean block_weather = true;
 	private final String[] blocked_commands = new String[] { "/weather", "/toggledownfall" };
 
 	@EventHandler
 	public void on(BlockBreakEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
@@ -57,7 +57,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void on(PlayerItemConsumeEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
@@ -68,7 +68,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void on(PlayerDropItemEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
@@ -79,7 +79,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void on(PlayerPickupItemEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
@@ -104,7 +104,7 @@ public class BlockListener implements Listener {
 	public void on(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			PlayerProfil playerprofil = Main.playerprofiles.get(p);
+			PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 			if (playerprofil != null) {
 				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
@@ -113,7 +113,7 @@ public class BlockListener implements Listener {
 		}
 		if (e.getDamager() instanceof Player) {
 			Player p = (Player) e.getDamager();
-			PlayerProfil playerprofil = Main.playerprofiles.get(p);
+			PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 			if (playerprofil != null) {
 				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
@@ -126,7 +126,7 @@ public class BlockListener implements Listener {
 	public void on(EntityDamageEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			PlayerProfil playerprofil = Main.playerprofiles.get(p);
+			PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 			if (playerprofil != null) {
 				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
@@ -142,7 +142,7 @@ public class BlockListener implements Listener {
 	public void on(EntityInteractEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
-			PlayerProfil playerprofil = Main.playerprofiles.get(p);
+			PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 			if (playerprofil != null) {
 				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
@@ -154,7 +154,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void on(PlayerInteractAtEntityEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
@@ -165,7 +165,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void on(PlayerInteractEntityEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
@@ -176,7 +176,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void on(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				Block block = e.getClickedBlock();
@@ -213,7 +213,7 @@ public class BlockListener implements Listener {
 	public void on(ProjectileLaunchEvent e) {
 		if (e.getEntity() != null && e.getEntity().getShooter() instanceof Player) {
 			Player p = (Player) e.getEntity().getShooter();
-			PlayerProfil playerprofil = Main.playerprofiles.get(p);
+			PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 			if (playerprofil != null) {
 				if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 					e.setCancelled(true);
@@ -238,7 +238,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void on(PlayerBedEnterEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
@@ -249,7 +249,7 @@ public class BlockListener implements Listener {
 	@EventHandler
 	public void on(InventoryClickEvent e) {
 		Player p = (Player) e.getWhoClicked();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode() || playerprofil.getIngame()) && playerprofil.getJoined()) {
 				e.setCancelled(true);
@@ -263,7 +263,7 @@ public class BlockListener implements Listener {
 		String[] args = msg.split(" ");
 		if (Arrays.asList(blocked_commands).contains(args[0].toLowerCase())) {
 			block_weather = false;
-			Bukkit.getScheduler().runTaskLaterAsynchronously(Main.plugin, new Runnable() {
+			Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getInstance(), new Runnable() {
 
 				@Override
 				public void run() {

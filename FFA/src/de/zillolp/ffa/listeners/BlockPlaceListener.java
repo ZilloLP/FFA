@@ -26,7 +26,7 @@ public class BlockPlaceListener implements Listener {
 	@EventHandler
 	public void on(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			String PREFIX = LanguageTools.getPREFIX();
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
@@ -75,7 +75,7 @@ public class BlockPlaceListener implements Listener {
 
 	private void replaceBlock(Block block, XMaterial material, int delay, boolean delete) {
 		Location loc = block.getLocation();
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {

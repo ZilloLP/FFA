@@ -24,8 +24,8 @@ import de.zillolp.ffa.utils.InventorySetter;
 import de.zillolp.ffa.xclasses.XMaterial;
 
 public class ArenaEditListener implements Listener {
-	private HashMap<Player, InventoryProfil> invprofiles = Main.invprofiles;
-	private HashMap<Player, PlayerProfil> playerprofiles = Main.playerprofiles;
+	private HashMap<Player, InventoryProfil> invprofiles = Main.getInstance().invprofiles;
+	private HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
 
 	@EventHandler
 	public void on(InventoryClickEvent e) {

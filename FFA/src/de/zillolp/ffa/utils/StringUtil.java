@@ -116,7 +116,7 @@ public class StringUtil {
 	}
 
 	public static String replaceKills(Player p, String message) {
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (message.contains("%kills%")) {
 				message = message.replace("%kills%", String.valueOf(playerprofil.getKills()));
@@ -163,7 +163,7 @@ public class StringUtil {
 	}
 
 	public static String replaceDeaths(Player p, String message) {
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (message.contains("%deaths%")) {
 				message = message.replace("%deaths%", String.valueOf(playerprofil.getDeaths()));
@@ -173,7 +173,7 @@ public class StringUtil {
 	}
 
 	public static String replaceStreak(Player p, String message) {
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (message.contains("%streak%")) {
 				message = message.replace("%streak%", String.valueOf(playerprofil.getKillstreak()));

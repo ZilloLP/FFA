@@ -18,7 +18,7 @@ public class ArenaChanger implements Runnable {
 
 	public ArenaChanger() {
 		seconds = ConfigTools.getMapchangeTime() + 1;
-		sched = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, this, 0, 20);
+		sched = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), this, 0, 20);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class ArenaChanger implements Runnable {
 			Location loc = locationtools.loadLocation("Spawn");
 			BlockPlaceListener.replaceAll();
 			for (Player all : Bukkit.getOnlinePlayers()) {
-				PlayerProfil playerprofil = Main.playerprofiles.get(all);
+				PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(all);
 				if (playerprofil != null && playerprofil.getJoined()) {
 					playerprofil.setKittools(new KitTools(arena));
 					all.getInventory().setArmorContents(null);
@@ -67,7 +67,7 @@ public class ArenaChanger implements Runnable {
 
 	private void sendBroadcast(String message) {
 		for (Player all : Bukkit.getOnlinePlayers()) {
-			PlayerProfil playerprofil = Main.playerprofiles.get(all);
+			PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(all);
 			if (playerprofil != null && playerprofil.getJoined()) {
 				all.sendMessage(message);
 			}

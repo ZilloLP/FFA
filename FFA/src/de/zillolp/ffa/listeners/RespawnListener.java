@@ -19,7 +19,7 @@ public class RespawnListener implements Listener {
 	@EventHandler
 	public void on(PlayerDeathEvent e) {
 		Player p = e.getEntity().getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getIngame() && playerprofil.getJoined()) {
 				String PREFIX = LanguageTools.getPREFIX();
@@ -29,7 +29,7 @@ public class RespawnListener implements Listener {
 				Respawn(p, 1);
 				if (p.getKiller() != null) {
 					Player k = p.getKiller();
-					PlayerProfil killerprofil = Main.playerprofiles.get(k);
+					PlayerProfil killerprofil = Main.getInstance().playerprofiles.get(k);
 					if (killerprofil != null) {
 						k.sendMessage(PREFIX + LanguageTools.getKILLED_PLAYER(p, k));
 						p.sendMessage(PREFIX + LanguageTools.getDIED_BY_PLAYER(p, k));
@@ -58,7 +58,7 @@ public class RespawnListener implements Listener {
 	@EventHandler
 	public void on(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getIngame() && playerprofil.getJoined()) {
 				playerprofil.setIngame(false);
@@ -85,7 +85,7 @@ public class RespawnListener implements Listener {
 	}
 
 	private void Respawn(Player p, int Time) {
-		Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+		Bukkit.getScheduler().runTaskLater(Main.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {

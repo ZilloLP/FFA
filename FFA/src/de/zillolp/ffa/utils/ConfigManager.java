@@ -15,7 +15,7 @@ import java.nio.charset.Charset;
 import de.zillolp.ffa.main.Main;
 
 public class ConfigManager {
-	private Main plugin = Main.plugin;
+	private Main plugin = Main.getInstance();
 
 	public ConfigUtil getNewConfig(String filePath, String[] header) {
 		File file = getConfigFile(filePath);

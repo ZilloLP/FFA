@@ -38,7 +38,7 @@ public class PlayerProfil {
 	private GameMode Gamemode;
 
 	public PlayerProfil(Player p) {
-		this.invprofiles = Main.invprofiles;
+		this.invprofiles = Main.getInstance().invprofiles;
 		this.p = p;
 		this.uuid = p.getUniqueId().toString();
 		this.scoreboardtools = new ScoreboardTools(p);
@@ -66,7 +66,7 @@ public class PlayerProfil {
 			invprofiles.put(p, new InventoryProfil());
 		}
 		if (ConfigTools.getScoreboard() && joined) {
-			Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+			Bukkit.getScheduler().runTaskLater(Main.getInstance(), new Runnable() {
 
 				@Override
 				public void run() {
