@@ -17,18 +17,18 @@ import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.xclasses.XMaterial;
 
 public class InventorySetter extends ItemCreator {
-	private static HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
-	private static String texture = "http://textures.minecraft.net/texture/";
-	public static String TITLE;
-	public static String SET_KIT;
-	public static String TEAMS_ALLOWED;
-	public static String TEAMS_NOT_ALLOWED;
-	public static String BLOCKS_ACTIVATED;
-	public static String BLOCKS_DEACTIVATED;
-	public static String SET_SIGN;
-	public static String SET_UPPERCORNER;
-	public static String SET_SPAWN;
-	public static String SET_BUTTOMCORNER;
+	private HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
+	private String texture = "http://textures.minecraft.net/texture/";
+	public String TITLE;
+	public String SET_KIT;
+	public String TEAMS_ALLOWED;
+	public String TEAMS_NOT_ALLOWED;
+	public String BLOCKS_ACTIVATED;
+	public String BLOCKS_DEACTIVATED;
+	public String SET_SIGN;
+	public String SET_UPPERCORNER;
+	public String SET_SPAWN;
+	public String SET_BUTTOMCORNER;
 
 	public InventorySetter() {
 		boolean english = ConfigTools.getEnglish();
@@ -57,12 +57,12 @@ public class InventorySetter extends ItemCreator {
 		}
 	}
 
-	public static void setDesign(Player p, Inventory inv) {
+	public void setDesign(Player p, Inventory inv) {
 		ItemStack glass = createItem(XMaterial.BLACK_STAINED_GLASS_PANE.parseItem(), "§7*");
 		IntStream.range(0, inv.getSize()).forEach(i -> inv.setItem(i, glass));
 	}
 
-	public static void setArenainv(Player p, Inventory inv) {
+	public void setArenainv(Player p, Inventory inv) {
 		boolean english = ConfigTools.getEnglish();
 		PlayerProfil playerprofil = playerprofiles.get(p);
 		String arena = playerprofil.getArena();

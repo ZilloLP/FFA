@@ -41,6 +41,7 @@ public class Main extends JavaPlugin {
 	
 	private static Main instance;
 	private ArenaManager arenaManager;
+	private InventorySetter inventorySetter;
 	
 	@Override
 	public void onEnable() {
@@ -94,6 +95,10 @@ public class Main extends JavaPlugin {
 	public ArenaManager getArenaManager() {
 		return arenaManager;
 	}
+
+	public InventorySetter getInventorySetter() {
+		return inventorySetter;
+	}
 	
 	private boolean register() {
 		new ConfigCreation();
@@ -108,7 +113,7 @@ public class Main extends JavaPlugin {
 		disabled = false;
 		invprofiles = new HashMap<>();
 		playerprofiles = new HashMap<>();
-		new InventorySetter();
+		inventorySetter = new InventorySetter();
 		arenaManager = new ArenaManager();
 		KitTools.loadKits();
 		if (ConfigTools.getScoreboard() || ConfigTools.getActionbar()) {

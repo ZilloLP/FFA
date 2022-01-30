@@ -19,7 +19,6 @@ import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.profiles.InventoryProfil;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.utils.ConfigUtil;
-import de.zillolp.ffa.utils.InventorySetter;
 
 public class FFACommand implements CommandExecutor {
 	private HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
@@ -99,10 +98,10 @@ public class FFACommand implements CommandExecutor {
 							InventoryProfil invprofil = invprofiles.get(p);
 							Inventory inv = invprofil.getArenainv();
 							if (inv == null) {
-								inv = invprofil.setArenainv(Bukkit.createInventory(null, 3 * 9, InventorySetter.TITLE));
+								inv = invprofil.setArenainv(Bukkit.createInventory(null, 3 * 9, Main.getInstance().getInventorySetter().TITLE));
 							}
-							InventorySetter.setDesign(p, inv);
-							InventorySetter.setArenainv(p, inv);
+							Main.getInstance().getInventorySetter().setDesign(p, inv);
+							Main.getInstance().getInventorySetter().setArenainv(p, inv);
 							p.openInventory(inv);
 						} else {
 							if (english) {
