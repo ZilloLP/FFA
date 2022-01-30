@@ -25,8 +25,9 @@ public class FFACommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		String PREFIX = LanguageTools.getPREFIX();
-		boolean english = ConfigTools.getEnglish();
+		final String PREFIX = LanguageTools.getPREFIX();
+		final boolean english = ConfigTools.getEnglish();
+		
 		if (sender instanceof Player) {
 			Player p = (Player) sender;
 			if (args.length == 0) {
