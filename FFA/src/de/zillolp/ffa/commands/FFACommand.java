@@ -29,49 +29,49 @@ public class FFACommand implements CommandExecutor {
 		final boolean english = ConfigTools.getEnglish();
 		
 		if (sender instanceof Player) {
-			Player p = (Player) sender;
+			Player player = (Player) sender;
 			if (args.length == 0) {
-				sendInfo(p);
+				sendInfo(player);
 			} else if (args.length == 1 && args[0].equalsIgnoreCase("info")) {
-				p.sendMessage("§6§lInfos zum Plugin:");
-				p.sendMessage("§7Plugin Name: §eFFA");
-				p.sendMessage("§7Plugin Version: §e" + Main.getInstance().getDescription().getVersion());
-				p.sendMessage("§7Author: §eZilloLP");
-				p.sendMessage("§7Discord: §ehttps://discord.gg/NBs27JK");
-			} else if (p.hasPermission(PermissionTools.getADMIN_PERMISSION())) {
+				player.sendMessage("§6§lInfos zum Plugin:");
+				player.sendMessage("§7Plugin Name: §eFFA");
+				player.sendMessage("§7Plugin Version: §e" + Main.getInstance().getDescription().getVersion());
+				player.sendMessage("§7Author: §eZilloLP");
+				player.sendMessage("§7Discord: §ehttps://discord.gg/NBs27JK");
+			} else if (player.hasPermission(PermissionTools.getADMIN_PERMISSION())) {
 				if (args.length == 1) {
 					if (args[0].equalsIgnoreCase("reload")) {
 						Main.getInstance().reload();
 						if (english) {
-							p.sendMessage(PREFIX + "§7The plugin was reloaded §asuccesful§7!");
+							player.sendMessage(PREFIX + "§7The plugin was reloaded §asuccesful§7!");
 						} else {
-							p.sendMessage(PREFIX + "§7Plugin wurde §aerfolgreich §7neu geladen!");
+							player.sendMessage(PREFIX + "§7Plugin wurde §aerfolgreich §7neu geladen!");
 						}
 					} else if (args[0].equalsIgnoreCase("arenas")) {
 						ConfigUtil configutil = Main.getInstance().getConfigCreation().getManager().getNewConfig("locations.yml");
 						ConfigurationSection configsection = configutil.getConfigurationSection("Arenas");
 						if (configsection != null && configsection.getKeys(false).size() > 0) {
 							if (english) {
-								p.sendMessage("§6All arenas:");
+								player.sendMessage("§6All arenas:");
 							} else {
-								p.sendMessage("§6Alle Arenen:");
+								player.sendMessage("§6Alle Arenen:");
 							}
 							for (String arena : configsection.getKeys(false)) {
 								if (Main.getInstance().getArenaManager().names.contains(arena)) {
-									p.sendMessage("§7- §e" + arena + " §7» §a✔");
+									player.sendMessage("§7- §e" + arena + " §7» §a✔");
 								} else {
-									p.sendMessage("§7- §e" + arena + " §7» §c✖");
+									player.sendMessage("§7- §e" + arena + " §7» §c✖");
 								}
 							}
 						} else {
 							if (english) {
-								p.sendMessage(PREFIX + "§cNo arena has been created yet.");
+								player.sendMessage(PREFIX + "§cNo arena has been created yet.");
 							} else {
-								p.sendMessage(PREFIX + "§cEs wurde noch keine Arena erstellt.");
+								player.sendMessage(PREFIX + "§cEs wurde noch keine Arena erstellt.");
 							}
 						}
 					} else {
-						sendInfo(p);
+						sendInfo(player);
 					}
 				} else if (args.length == 2) {
 					String name = args[1];
@@ -80,34 +80,34 @@ public class FFACommand implements CommandExecutor {
 						if (!(locationtools.isArena())) {
 							locationtools.saveArena();
 							if (english) {
-								p.sendMessage(PREFIX + "§7You created the Arena §b" + name + "§7.");
+								player.sendMessage(PREFIX + "§7You created the Arena §b" + name + "§7.");
 							} else {
-								p.sendMessage(PREFIX + "§7Du hast die Arena §b" + name + " §7erstellt.");
+								player.sendMessage(PREFIX + "§7Du hast die Arena §b" + name + " §7erstellt.");
 							}
 						} else {
 							if (english) {
-								p.sendMessage(PREFIX + "§cThis arena already exists!");
+								player.sendMessage(PREFIX + "§cThis arena already exists!");
 							} else {
-								p.sendMessage(PREFIX + "§cDiese Arena existiert bereits!");
+								player.sendMessage(PREFIX + "§cDiese Arena existiert bereits!");
 							}
 						}
 					} else if (args[0].equalsIgnoreCase("edit")) {
 						if (locationtools.isArena()) {
-							PlayerProfil playerprofil = playerprofiles.get(p);
+							PlayerProfil playerprofil = playerprofiles.get(player);
 							playerprofil.setArena(name);
-							InventoryProfil invprofil = invprofiles.get(p);
+							InventoryProfil invprofil = invprofiles.get(player);
 							Inventory inv = invprofil.getArenainv();
 							if (inv == null) {
 								inv = invprofil.setArenainv(Bukkit.createInventory(null, 3 * 9, Main.getInstance().getInventorySetter().TITLE));
 							}
-							Main.getInstance().getInventorySetter().setDesign(p, inv);
-							Main.getInstance().getInventorySetter().setArenainv(p, inv);
-							p.openInventory(inv);
+							Main.getInstance().getInventorySetter().setDesign(player, inv);
+							Main.getInstance().getInventorySetter().setArenainv(player, inv);
+							player.openInventory(inv);
 						} else {
 							if (english) {
-								p.sendMessage(PREFIX + "§cThis arena doesn't exist!");
+								player.sendMessage(PREFIX + "§cThis arena doesn't exist!");
 							} else {
-								p.sendMessage(PREFIX + "§cDiese Arena existiert nicht!");
+								player.sendMessage(PREFIX + "§cDiese Arena existiert nicht!");
 							}
 						}
 					} else if (args[0].equalsIgnoreCase("delete")) {
@@ -115,19 +115,19 @@ public class FFACommand implements CommandExecutor {
 							locationtools.resetArena();
 							Main.getInstance().getArenaManager().loadArenas();
 							if (english) {
-								p.sendMessage(PREFIX + "§7You deleted the arena §b" + name + "§7.");
+								player.sendMessage(PREFIX + "§7You deleted the arena §b" + name + "§7.");
 							} else {
-								p.sendMessage(PREFIX + "§7Du hast die Arena §b" + name + " §7gelöscht.");
+								player.sendMessage(PREFIX + "§7Du hast die Arena §b" + name + " §7gelöscht.");
 							}
 						} else {
 							if (english) {
-								p.sendMessage(PREFIX + "§cThis arena doesn't exist!");
+								player.sendMessage(PREFIX + "§cThis arena doesn't exist!");
 							} else {
-								p.sendMessage(PREFIX + "§cDiese Arena existiert nicht!");
+								player.sendMessage(PREFIX + "§cDiese Arena existiert nicht!");
 							}
 						}
 					} else {
-						sendInfo(p);
+						sendInfo(player);
 					}
 				} else if (args.length == 3) {
 					String name = args[1];
@@ -139,31 +139,31 @@ public class FFACommand implements CommandExecutor {
 								locationtools.renameArena(rename);
 								Main.getInstance().getArenaManager().loadArenas();
 								if (english) {
-									p.sendMessage(
+									player.sendMessage(
 											PREFIX + "§7The arena §b" + name + " §7is now called §9" + rename + ".");
 								} else {
-									p.sendMessage(PREFIX + "§7Die Arena §b" + name + " §7heißt nun §9" + rename + ".");
+									player.sendMessage(PREFIX + "§7Die Arena §b" + name + " §7heißt nun §9" + rename + ".");
 								}
 							} else {
 								if (english) {
-									p.sendMessage(PREFIX + "§cThis arena already exists!");
+									player.sendMessage(PREFIX + "§cThis arena already exists!");
 								} else {
-									p.sendMessage(PREFIX + "§cDiese Arena existiert bereits!");
+									player.sendMessage(PREFIX + "§cDiese Arena existiert bereits!");
 								}
 							}
 						} else {
 							if (english) {
-								p.sendMessage(PREFIX + "§cThis arena doesn't exist!");
+								player.sendMessage(PREFIX + "§cThis arena doesn't exist!");
 							} else {
-								p.sendMessage(PREFIX + "§cDiese Arena existiert nicht!");
+								player.sendMessage(PREFIX + "§cDiese Arena existiert nicht!");
 							}
 						}
 					}
 				} else {
-					sendInfo(p);
+					sendInfo(player);
 				}
 			} else {
-				p.sendMessage(PREFIX + LanguageTools.getNO_PERMISSION());
+				player.sendMessage(PREFIX + LanguageTools.getNO_PERMISSION());
 			}
 		} else if (args[0].equalsIgnoreCase("reload")) {
 			Main.getInstance().reload();
