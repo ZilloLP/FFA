@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 
 public class RespawnListener implements Listener {
@@ -68,7 +67,7 @@ public class RespawnListener implements Listener {
 				p.setExp(0);
 				p.setFoodLevel(20);
 				p.setHealth(20);
-				String arena = ArenaManager.active_arena;
+				String arena = Main.getInstance().getArenaManager().active_arena;
 				if (arena != null) {
 					LocationTools locationtools = new LocationTools(arena);
 					Location loc = locationtools.loadLocation("Spawn");
