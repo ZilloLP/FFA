@@ -10,7 +10,7 @@ import de.zillolp.ffa.xclasses.XMaterial;
 
 @SuppressWarnings("unused")
 public class ConfigCreation {
-	public static ConfigManager manager;
+	private ConfigManager manager;
 	private String[] header = { "FFA" };
 	private LinkedHashMap<String, Object> defaults = new LinkedHashMap<>();
 
@@ -24,6 +24,10 @@ public class ConfigCreation {
 		createLocationsfile();
 	}
 
+	public ConfigManager getManager() {
+		return manager;
+	}
+	
 	private void createConfigfile() {
 		ConfigUtil configutil = manager.getNewConfig("config.yml", header);
 //		configutil.setDefault("Bungeecord", false, "If you are using bungeecord set this to true");

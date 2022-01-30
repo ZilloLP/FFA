@@ -10,14 +10,14 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import de.zillolp.ffa.config.ConfigCreation;
+import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.profiles.KitProfil;
 import de.zillolp.ffa.utils.BukkitSerialization;
 import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.xclasses.NBTEditor;
 
 public class KitTools {
-	private static ConfigUtil configutil = ConfigCreation.manager.getNewConfig("kits.yml");
+	private static ConfigUtil configutil = Main.getInstance().getConfigCreation().getManager().getNewConfig("kits.yml");
 	private static ArrayList<KitProfil> kits = new ArrayList<>();
 	private String root;
 	private String arena;

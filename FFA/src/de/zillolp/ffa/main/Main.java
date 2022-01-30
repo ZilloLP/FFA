@@ -42,6 +42,7 @@ public class Main extends JavaPlugin {
 	private static Main instance;
 	private ArenaManager arenaManager;
 	private InventorySetter inventorySetter;
+	private ConfigCreation configCreation;
 	
 	@Override
 	public void onEnable() {
@@ -100,8 +101,12 @@ public class Main extends JavaPlugin {
 		return inventorySetter;
 	}
 	
+	public ConfigCreation getConfigCreation() {
+		return configCreation;
+	}
+	
 	private boolean register() {
-		new ConfigCreation();
+		configCreation = new ConfigCreation();
 		new ConfigTools();
 		new LanguageTools();
 		new PermissionTools();

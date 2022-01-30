@@ -5,11 +5,11 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 
-import de.zillolp.ffa.config.ConfigCreation;
+import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.utils.ConfigUtil;
 
 public class LocationTools {
-	private ConfigUtil configutil = ConfigCreation.manager.getNewConfig("locations.yml");
+	private ConfigUtil configutil = Main.getInstance().getConfigCreation().getManager().getNewConfig("locations.yml");
 	private String arena;
 	private Location loc;
 

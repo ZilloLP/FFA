@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 
-import de.zillolp.ffa.config.ConfigCreation;
+import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.xclasses.XMaterial;
 
@@ -29,7 +29,7 @@ public class ConfigTools {
 	private static ArrayList<Material> blocked_blocks;
 
 	public ConfigTools() {
-		this.configutil = ConfigCreation.manager.getNewConfig("config.yml");
+		this.configutil = Main.getInstance().getConfigCreation().getManager().getNewConfig("config.yml");
 //		Bungeecord = configutil.getBoolean("Bungeecord");
 		Bungeecord = true;
 		MySQL = configutil.getBoolean("MySQL");
