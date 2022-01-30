@@ -16,7 +16,6 @@ import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.config.tools.PermissionTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.InventoryProfil;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.utils.ConfigUtil;
@@ -59,7 +58,7 @@ public class FFACommand implements CommandExecutor {
 								p.sendMessage("§6Alle Arenen:");
 							}
 							for (String arena : configsection.getKeys(false)) {
-								if (ArenaManager.names.contains(arena)) {
+								if (Main.getInstance().getArenaManager().names.contains(arena)) {
 									p.sendMessage("§7- §e" + arena + " §7» §a✔");
 								} else {
 									p.sendMessage("§7- §e" + arena + " §7» §c✖");
@@ -115,7 +114,7 @@ public class FFACommand implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("delete")) {
 						if (locationtools.isArena()) {
 							locationtools.resetArena();
-							ArenaManager.loadArenas();
+							Main.getInstance().getArenaManager().loadArenas();
 							if (english) {
 								p.sendMessage(PREFIX + "§7You deleted the arena §b" + name + "§7.");
 							} else {
@@ -139,7 +138,7 @@ public class FFACommand implements CommandExecutor {
 							String rename = args[2];
 							if (!(new LocationTools(rename).isArena())) {
 								locationtools.renameArena(rename);
-								ArenaManager.loadArenas();
+								Main.getInstance().getArenaManager().loadArenas();
 								if (english) {
 									p.sendMessage(
 											PREFIX + "§7The arena §b" + name + " §7is now called §9" + rename + ".");

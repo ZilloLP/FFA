@@ -15,7 +15,6 @@ import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.xclasses.XMaterial;
 
@@ -31,7 +30,7 @@ public class BlockPlaceListener implements Listener {
 			String PREFIX = LanguageTools.getPREFIX();
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				if (playerprofil.getIngame()) {
-					String arena = ArenaManager.active_arena;
+					String arena = Main.getInstance().getArenaManager().active_arena;
 					LocationTools locationtools = new LocationTools(arena);
 					if (locationtools.getBuild()) {
 						Block block = e.getBlock();

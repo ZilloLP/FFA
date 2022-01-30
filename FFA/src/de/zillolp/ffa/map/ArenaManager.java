@@ -12,9 +12,9 @@ import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.utils.ConfigUtil;
 
 public class ArenaManager {
-	public static String active_arena;
-	public static ArenaChanger arenachanger;
-	public static LinkedList<String> names;
+	public String active_arena;
+	public ArenaChanger arenachanger;
+	public LinkedList<String> names;
 
 	public ArenaManager() {
 		loadArenas();
@@ -29,7 +29,7 @@ public class ArenaManager {
 		}
 	}
 
-	public static void loadArenas() {
+	public void loadArenas() {
 		checkArenas();
 		if (names.size() > 1) {
 			if (ConfigTools.getMapchange()) {
@@ -53,7 +53,7 @@ public class ArenaManager {
 		}
 	}
 
-	public static void checkArenas() {
+	public void checkArenas() {
 		ConfigUtil configutil = ConfigCreation.manager.getNewConfig("locations.yml");
 		ConfigurationSection section = configutil.getConfigurationSection("Arenas");
 		names = new LinkedList<>();
@@ -69,7 +69,7 @@ public class ArenaManager {
 		}
 	}
 
-	public static void refresh() {
+	public void refresh() {
 		loadArenas();
 		if (active_arena != null) {
 			if (arenachanger != null) {

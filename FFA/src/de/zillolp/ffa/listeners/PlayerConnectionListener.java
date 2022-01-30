@@ -13,7 +13,6 @@ import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.stats.DatenManager;
 
@@ -39,7 +38,7 @@ public class PlayerConnectionListener implements Listener {
 		if (ConfigTools.getBungeecord()) {
 			e.setJoinMessage(LanguageTools.getJOIN_MESSAGE(p));
 
-			String arena = ArenaManager.active_arena;
+			String arena = Main.getInstance().getArenaManager().active_arena;
 			if (arena != null) {
 				LocationTools locationtools = new LocationTools(arena);
 				p.teleport(locationtools.loadLocation("Spawn"));

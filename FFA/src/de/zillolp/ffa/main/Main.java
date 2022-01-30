@@ -35,11 +35,13 @@ import de.zillolp.ffa.xclasses.XMaterial;
 
 public class Main extends JavaPlugin {
 	
-	private static Main instance;
 	public boolean disabled;
 	public HashMap<Player, InventoryProfil> invprofiles;
 	public HashMap<Player, PlayerProfil> playerprofiles;
-
+	
+	private static Main instance;
+	private ArenaManager arenaManager;
+	
 	@Override
 	public void onEnable() {
 		instance = this;
@@ -89,6 +91,10 @@ public class Main extends JavaPlugin {
 		return instance;
 	}
 	
+	public ArenaManager getArenaManager() {
+		return arenaManager;
+	}
+	
 	private boolean register() {
 		new ConfigCreation();
 		new ConfigTools();
@@ -103,7 +109,7 @@ public class Main extends JavaPlugin {
 		invprofiles = new HashMap<>();
 		playerprofiles = new HashMap<>();
 		new InventorySetter();
-		new ArenaManager();
+		arenaManager = new ArenaManager();
 		KitTools.loadKits();
 		if (ConfigTools.getScoreboard() || ConfigTools.getActionbar()) {
 			new Manager();
@@ -141,7 +147,7 @@ public class Main extends JavaPlugin {
 		if (ConfigTools.getScoreboard() || ConfigTools.getActionbar()) {
 			new Manager();
 		}
-		ArenaManager.refresh();
+		arenaManager.refresh();
 		createPlayers();
 	}
 
@@ -175,7 +181,7 @@ public class Main extends JavaPlugin {
 				}
 			}, 5);
 			if (ConfigTools.getBungeecord()) {
-				String arena = ArenaManager.active_arena;
+				String arena = arenaManager.active_arena;
 				if (arena != null) {
 					LocationTools locationtools = new LocationTools(arena);
 					all.teleport(locationtools.loadLocation("Spawn"));

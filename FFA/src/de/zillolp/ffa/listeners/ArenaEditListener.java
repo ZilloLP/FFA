@@ -17,7 +17,6 @@ import de.zillolp.ffa.config.tools.KitTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.InventoryProfil;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.utils.InventorySetter;
@@ -52,7 +51,7 @@ public class ArenaEditListener implements Listener {
 								player_inv.getArmorContents());
 						if (clicktype == ClickType.LEFT) {
 							kittools.saveKit();
-							ArenaManager.checkArenas();
+							Main.getInstance().getArenaManager().checkArenas();
 							if (english) {
 								p.sendMessage(PREFIX + "§7You set the §ekit §7for the arena §b" + arena + "§7.");
 							} else {
@@ -75,7 +74,7 @@ public class ArenaEditListener implements Listener {
 						LocationTools locationtools = new LocationTools(arena);
 						if (itemname.equalsIgnoreCase(InventorySetter.TEAMS_ALLOWED)) {
 							locationtools.setTeams(false);
-							ArenaManager.checkArenas();
+							Main.getInstance().getArenaManager().checkArenas();
 							if (english) {
 								p.sendMessage(
 										PREFIX + "§7Teams are now §cnot allowed §7for the arena §b" + arena + "§7.");
@@ -84,7 +83,7 @@ public class ArenaEditListener implements Listener {
 							}
 						} else if (itemname.equalsIgnoreCase(InventorySetter.TEAMS_NOT_ALLOWED)) {
 							locationtools.setTeams(true);
-							ArenaManager.checkArenas();
+							Main.getInstance().getArenaManager().checkArenas();
 							if (english) {
 								p.sendMessage(PREFIX + "§7Teams are now §aallowed §7for the arena §b" + arena + "§7.");
 							} else {
@@ -126,7 +125,7 @@ public class ArenaEditListener implements Listener {
 							&& itemname.equalsIgnoreCase(InventorySetter.SET_UPPERCORNER)) {
 						LocationTools locationtools = new LocationTools(arena, p.getLocation());
 						locationtools.saveLocation("Uppercorner");
-						ArenaManager.checkArenas();
+						Main.getInstance().getArenaManager().checkArenas();
 						if (english) {
 							p.sendMessage(PREFIX + "§7You set the §eUpper Corner §7for the arena §b" + arena + "§7.");
 						} else {
@@ -138,7 +137,7 @@ public class ArenaEditListener implements Listener {
 							&& itemname.equalsIgnoreCase(InventorySetter.SET_SPAWN)) {
 						LocationTools locationtools = new LocationTools(arena, p.getLocation());
 						locationtools.saveLocation("Spawn");
-						ArenaManager.checkArenas();
+						Main.getInstance().getArenaManager().checkArenas();
 						if (english) {
 							p.sendMessage(PREFIX + "§7You set the §eSpawn §7for the arena §b" + arena + "§7.");
 						} else {
@@ -149,7 +148,7 @@ public class ArenaEditListener implements Listener {
 							&& itemname.equalsIgnoreCase(InventorySetter.SET_BUTTOMCORNER)) {
 						LocationTools locationtools = new LocationTools(arena, p.getLocation());
 						locationtools.saveLocation("Bottomcorner");
-						ArenaManager.checkArenas();
+						Main.getInstance().getArenaManager().checkArenas();
 						if (english) {
 							p.sendMessage(PREFIX + "§7You set the §eButtom Corner §7for the arena §b" + arena + "§7.");
 						} else {

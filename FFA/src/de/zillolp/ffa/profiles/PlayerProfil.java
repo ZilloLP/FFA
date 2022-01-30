@@ -11,7 +11,6 @@ import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.KitTools;
 import de.zillolp.ffa.config.tools.ScoreboardTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.runnables.Manager;
 import de.zillolp.ffa.stats.DatenManager;
 
@@ -42,7 +41,7 @@ public class PlayerProfil {
 		this.p = p;
 		this.uuid = p.getUniqueId().toString();
 		this.scoreboardtools = new ScoreboardTools(p);
-		this.kittools = new KitTools(ArenaManager.active_arena);
+		this.kittools = new KitTools(Main.getInstance().getArenaManager().active_arena);
 		if (ConfigTools.getBungeecord()) {
 			this.joined = true;
 		} else {

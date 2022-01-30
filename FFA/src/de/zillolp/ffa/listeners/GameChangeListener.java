@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import de.zillolp.ffa.config.tools.KitTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 
 public class GameChangeListener implements Listener {
@@ -20,7 +19,7 @@ public class GameChangeListener implements Listener {
 		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
-				String arena = ArenaManager.active_arena;
+				String arena = Main.getInstance().getArenaManager().active_arena;
 				if (arena != null) {
 					LocationTools locationtools = new LocationTools(arena);
 					Location loc = p.getLocation();

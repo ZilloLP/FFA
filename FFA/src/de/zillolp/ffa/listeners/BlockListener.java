@@ -34,7 +34,6 @@ import org.bukkit.event.weather.WeatherChangeEvent;
 import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.xclasses.XMaterial;
 
@@ -89,7 +88,7 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(EntityDamageByBlockEvent e) {
-		LocationTools locationtools = new LocationTools(ArenaManager.active_arena);
+		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().active_arena);
 		Location loc = locationtools.loadLocation("Spawn");
 		if (loc != null) {
 			if (loc.getWorld().getName().equalsIgnoreCase(e.getEntity().getWorld().getName())) {
@@ -200,7 +199,7 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(FoodLevelChangeEvent e) {
-		LocationTools locationtools = new LocationTools(ArenaManager.active_arena);
+		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().active_arena);
 		Location loc = locationtools.loadLocation("Spawn");
 		if (loc != null) {
 			if (loc.getWorld().getName().equalsIgnoreCase(e.getEntity().getWorld().getName())) {
@@ -224,7 +223,7 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(CreatureSpawnEvent e) {
-		LocationTools locationtools = new LocationTools(ArenaManager.active_arena);
+		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().active_arena);
 		Location loc = locationtools.loadLocation("Spawn");
 		if (loc != null) {
 			if (loc.getWorld().getName().equalsIgnoreCase(e.getLocation().getWorld().getName())) {
@@ -275,7 +274,7 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(WeatherChangeEvent e) {
-		LocationTools locationtools = new LocationTools(ArenaManager.active_arena);
+		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().active_arena);
 		Location loc = locationtools.loadLocation("Spawn");
 		if (loc != null) {
 			if (loc.getWorld().getName().equalsIgnoreCase(e.getWorld().getName())) {
