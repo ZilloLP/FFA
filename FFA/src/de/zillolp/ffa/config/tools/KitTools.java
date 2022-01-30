@@ -21,7 +21,7 @@ public class KitTools {
 	private static ArrayList<KitProfil> kits = new ArrayList<>();
 	private String root;
 	private String arena;
-	private ItemStack[] inv;
+	private ItemStack[] inventory;
 	private ItemStack[] armor;
 
 	public KitTools(String arena) {
@@ -32,25 +32,26 @@ public class KitTools {
 	public KitTools(String arena, ItemStack[] inv, ItemStack[] armor) {
 		this.root = "Kits." + arena;
 		this.arena = arena;
-		this.inv = inv;
+		this.inventory = inv;
 		this.armor = armor;
 	}
 
 	public void saveKit() {
-		KitProfil profil = new KitProfil(arena, inv, armor);
+		KitProfil profil = new KitProfil(arena, inventory, armor);
 		kits.remove(profil);
 		kits.add(profil);
-		configutil.set(root + ".inv", BukkitSerialization.itemStackArrayToBase64(inv));
+		configutil.set(root + ".inv", BukkitSerialization.itemStackArrayToBase64(inventory));
 		configutil.set(root + ".armor", BukkitSerialization.itemStackArrayToBase64(armor));
 	}
 
 	public void loadKit(Player p) {
 		try {
-			inv = BukkitSerialization.itemStackArrayFromBase64(configutil.getString(root + ".inv"));
+			inventory = BukkitSerialization.itemStackArrayFromBase64(configutil.getString(root + ".inv"));
 			armor = BukkitSerialization.itemStackArrayFromBase64(configutil.getString(root + ".armor"));
 			if (ConfigTools.getUnbreakable()) {
-				int i = 0;
-				for (ItemStack item : inv) {
+				int index = 0;
+				
+				for (ItemStack item : inventory) {
 					if (item != null && item.getType() != Material.AIR) {
 						item = NBTEditor.set(item, (byte) 1, "Unbreakable");
 						ItemMeta itemmeta = item.getItemMeta();
@@ -58,11 +59,13 @@ public class KitTools {
 							itemmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 							item.setItemMeta(itemmeta);
 						}
-						inv[i] = item;
+						inventory[index] = item;
 					}
-					i++;
+					index++;
 				}
-				i = 0;
+				
+				index = 0;
+				
 				for (ItemStack item : armor) {
 					if (item != null && item.getType() != Material.AIR) {
 						item = NBTEditor.set(item, (byte) 1, "Unbreakable");
@@ -71,12 +74,13 @@ public class KitTools {
 							itemmeta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
 							item.setItemMeta(itemmeta);
 						}
-						armor[i] = item;
+						armor[index] = item;
 					}
-					i++;
+					index++;
 				}
+				
 			}
-			p.getInventory().setContents(inv);
+			p.getInventory().setContents(inventory);
 			p.getInventory().setArmorContents(armor);
 		} catch (IOException e) {
 			e.printStackTrace();
