@@ -9,6 +9,7 @@ import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.utils.ConfigUtil;
 
 public class LocationTools {
+	
 	private ConfigUtil configutil = Main.getInstance().getConfigCreation().getManager().getNewConfig("locations.yml");
 	private String arena;
 	private Location loc;
