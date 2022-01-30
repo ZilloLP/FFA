@@ -5,10 +5,10 @@ import java.util.Random;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.KitTools;
 import de.zillolp.ffa.config.tools.LocationTools;
+import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.utils.ConfigUtil;
 
 public class ArenaManager {
@@ -54,14 +54,14 @@ public class ArenaManager {
 	}
 
 	public void checkArenas() {
-		ConfigUtil configutil = ConfigCreation.manager.getNewConfig("locations.yml");
+		ConfigUtil configutil = Main.getInstance().getConfigCreation().getManager().getNewConfig("locations.yml");
 		ConfigurationSection section = configutil.getConfigurationSection("Arenas");
 		names = new LinkedList<>();
 		if (section != null) {
 			if (section.getKeys(false).size() > 0) {
 				for (String arena : section.getKeys(false)) {
 					LocationTools locationtools = new LocationTools(arena);
-					if (locationtools.isPlayable() && KitTools.isKit(arena)) {
+					if (locationtools.isPlayable() && KitTools.hasKit(arena)) {
 						names.add(arena);
 					}
 				}

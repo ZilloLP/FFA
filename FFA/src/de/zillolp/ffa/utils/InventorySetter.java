@@ -88,7 +88,7 @@ public class InventorySetter extends ItemCreator {
 			lore.add("§eRechtsklick §8- §7Kit laden.");
 		}
 		lore.add("§7");
-		if (KitTools.isKit(arena)) {
+		if (KitTools.hasKit(arena)) {
 			lore.add(SET);
 			kit = createItem(XMaterial.IRON_SWORD.parseItem(), SET_KIT, lore, true, ItemFlag.HIDE_ATTRIBUTES);
 		} else {

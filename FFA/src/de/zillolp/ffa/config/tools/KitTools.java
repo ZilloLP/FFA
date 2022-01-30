@@ -44,7 +44,7 @@ public class KitTools {
 		configutil.set(root + ".armor", BukkitSerialization.itemStackArrayToBase64(armor));
 	}
 
-	public void loadKit(Player p) {
+	public void loadKit(Player player) {
 		try {
 			inventory = BukkitSerialization.itemStackArrayFromBase64(configutil.getString(root + ".inv"));
 			armor = BukkitSerialization.itemStackArrayFromBase64(configutil.getString(root + ".armor"));
@@ -80,50 +80,67 @@ public class KitTools {
 				}
 				
 			}
-			p.getInventory().setContents(inventory);
-			p.getInventory().setArmorContents(armor);
+			
+			player.getInventory().setContents(inventory);
+			player.getInventory().setArmorContents(armor);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static boolean isKit(String arena) {
-		boolean isKit = false;
+	public static boolean hasKit(String arena) {
+		boolean hasKit = false;
+		
 		ConfigurationSection section = configutil.getConfigurationSection("Kits");
+		
 		if (section != null && section.getKeys(false).size() > 0 && section.getKeys(false).contains(arena)) {
-			isKit = true;
+			hasKit = true;
 		}
-		return isKit;
+		
+		return hasKit;
 	}
 
 	public static void loadKits() {
+		
 		ConfigurationSection section = configutil.getConfigurationSection("Kits");
+		
 		if (section != null && section.getKeys(false).size() > 0) {
+		
 			for (String current : section.getKeys(false)) {
+			
 				String arena = current;
-				ItemStack[] inv = null;
+				ItemStack[] inventory = null;
 				ItemStack[] armor = null;
+				
 				try {
-					inv = BukkitSerialization
+					inventory = BukkitSerialization
 							.itemStackArrayFromBase64(configutil.getString("Kits." + current + ".inv"));
 					armor = BukkitSerialization
 							.itemStackArrayFromBase64(configutil.getString("Kits." + current + ".armor"));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				kits.add(new KitProfil(arena, inv, armor));
+				
+				kits.add(new KitProfil(arena, inventory, armor));
+		
 			}
+			
 		}
+		
 	}
 
 	public void resetKit() {
+		
 		for (String key : configutil.getConfigurationSection(root).getKeys(false)) {
+			
 			if (configutil.getString(root + "." + key) != null) {
+				
 				configutil.set(root + "." + key, null);
-			} else {
-				continue;
-			}
+				
+			} 
+			
 		}
+		
 		configutil.set(root, null);
 	}
 }
