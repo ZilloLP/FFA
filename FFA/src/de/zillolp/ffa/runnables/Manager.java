@@ -49,12 +49,12 @@ public class Manager implements Runnable {
 	}
 
 	@SuppressWarnings("deprecation")
-	public static void setScoreboard(Player p) {
+	public static void setScoreboard(Player player) {
 		Bukkit.getScheduler().runTask(Main.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {
-				PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
+				PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(player);
 				if (playerprofil != null) {
 					ScoreboardTools scoreboardtools = playerprofil.getScoreboardtools();
 					ScoreboardManager scoreboardmanager = Bukkit.getScoreboardManager();
@@ -101,7 +101,7 @@ public class Manager implements Runnable {
 						obj.getScore(color.toString()).setScore(11 - i);
 					}
 				
-					p.setScoreboard(scoreboard);
+					player.setScoreboard(scoreboard);
 			
 				}
 			
@@ -153,11 +153,11 @@ public class Manager implements Runnable {
 	}
 
 	@SuppressWarnings("deprecation")
-	private void updateScoreboard(Player p) {
-		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
+	private void updateScoreboard(Player player) {
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(player);
 		if (playerprofil != null) {
 			ScoreboardTools scoreboardtools = playerprofil.getScoreboardtools();
-			Scoreboard scoreboard = p.getScoreboard();
+			Scoreboard scoreboard = player.getScoreboard();
 
 			if (scoreboardtools.getShowHearts()) {
 				for (Player all : Bukkit.getOnlinePlayers()) {
@@ -178,48 +178,8 @@ public class Manager implements Runnable {
 				} else {
 					team = "line" + i;
 				}
-				switch (i) {
-				case 0:
-					prefix = scoreboardtools.getLine();
-					break;
-				case 1:
-					prefix = scoreboardtools.getLine1();
-					break;
-				case 2:
-					prefix = scoreboardtools.getLine2();
-					break;
-				case 3:
-					prefix = scoreboardtools.getLine3();
-					break;
-				case 4:
-					prefix = scoreboardtools.getLine4();
-					break;
-				case 5:
-					prefix = scoreboardtools.getLine5();
-					break;
-				case 6:
-					prefix = scoreboardtools.getLine6();
-					break;
-				case 7:
-					prefix = scoreboardtools.getLine7();
-					break;
-				case 8:
-					prefix = scoreboardtools.getLine8();
-					break;
-				case 9:
-					prefix = scoreboardtools.getLine9();
-					break;
-				case 10:
-					prefix = scoreboardtools.getLine10();
-					break;
-				case 11:
-					prefix = scoreboardtools.getLine11();
-					break;
-				case 12:
-					prefix = scoreboardtools.getLine12();
-					break;
-				}
-				if (!(prefix.equalsIgnoreCase(p.getScoreboard().getTeam(team).getPrefix()))) {
+				prefix = scoreboardtools.getLine(i);
+				if (!(prefix.equalsIgnoreCase(player.getScoreboard().getTeam(team).getPrefix()))) {
 					Team line = scoreboard.getTeam(team);
 					if (line == null) {
 						line = scoreboard.registerNewTeam(team);
