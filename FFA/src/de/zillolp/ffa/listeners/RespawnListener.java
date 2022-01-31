@@ -53,7 +53,6 @@ public class RespawnListener implements Listener {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void on(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
