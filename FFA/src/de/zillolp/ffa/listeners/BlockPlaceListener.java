@@ -23,8 +23,8 @@ public class BlockPlaceListener implements Listener {
 
 	@EventHandler
 	public void on(BlockPlaceEvent e) {
-		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
+		Player player = e.getPlayer();
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(player);
 		if (playerprofil != null) {
 			String PREFIX = LanguageTools.getPREFIX();
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
@@ -34,20 +34,20 @@ public class BlockPlaceListener implements Listener {
 					if (locationtools.getBuild()) {
 						Block block = e.getBlock();
 						if (e.getBlockReplacedState().getType() == XMaterial.AIR.parseMaterial()) {
-							Location loc = block.getLocation();
+							Location location = block.getLocation();
 							int protection = ConfigTools.getBuildingProtection();
-							if (!(GameChangeListener.checkOnSpawn(loc, locationtools, protection))) {
-								blocks.add(loc);
+							if (!(GameChangeListener.checkOnSpawn(location, locationtools, protection))) {
+								blocks.add(location);
 								replaceBlock(block, ConfigTools.getReplaceType(), ConfigTools.getReplaceTime(), false);
 								replaceBlock(block, XMaterial.AIR, ConfigTools.getAirTime(), true);
 								if (ConfigTools.getInfiniteblocks()) {
 									ItemStack item = e.getItemInHand();
 									if (item.getAmount() - 1 <= 0) {
-										p.getInventory().setItemInHand(item);
+										player.getInventory().setItemInHand(item);
 									}
 								}
 							} else {
-								p.sendMessage(PREFIX + LanguageTools.getBUILD_PROTECTION());
+								player.sendMessage(PREFIX + LanguageTools.getBUILD_PROTECTION());
 								e.setCancelled(true);
 							}
 						} else {
