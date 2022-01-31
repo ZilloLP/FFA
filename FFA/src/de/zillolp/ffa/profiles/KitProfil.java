@@ -17,7 +17,7 @@ public class KitProfil {
 		return arena;
 	}
 
-	public ItemStack[] getInv() {
+	public ItemStack[] getInventory() {
 		return inventory;
 	}
 

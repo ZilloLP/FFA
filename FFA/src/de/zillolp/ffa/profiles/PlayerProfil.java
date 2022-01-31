@@ -15,72 +15,78 @@ import de.zillolp.ffa.runnables.Manager;
 import de.zillolp.ffa.stats.DatenManager;
 
 public class PlayerProfil {
-	private HashMap<Player, InventoryProfil> invprofiles;
-	private final Player p;
+	private HashMap<Player, InventoryProfil> invProfiles;
+	private final Player player;
 	private String uuid;
-	private ScoreboardTools scoreboardtools;
-	private KitTools kittools;
+	private ScoreboardTools scoreboardTools;
+	private KitTools kitTools;
 	private boolean joined;
-	private boolean buildmode;
-	private boolean setsign;
+	private boolean buildMode;
+	private boolean setSign;
 	private String arena;
 	private boolean ingame;
 	private Long kills;
 	private Long deaths;
 	private Long killstreak;
-	private ItemStack[] inv;
+	private ItemStack[] inventory;
 	private ItemStack[] armor;
-	private int Level;
-	private float Exp;
-	private int FoodLevel;
-	private int Health;
-	private GameMode Gamemode;
+	private int level;
+	private float exp;
+	private int foodLevel;
+	private int health;
+	private GameMode gamemode;
 
 	public PlayerProfil(Player p) {
-		this.invprofiles = Main.getInstance().invprofiles;
-		this.p = p;
+		this.invProfiles = Main.getInstance().invprofiles;
+		this.player = p;
 		this.uuid = p.getUniqueId().toString();
-		this.scoreboardtools = new ScoreboardTools(p);
-		this.kittools = new KitTools(Main.getInstance().getArenaManager().activeArena);
+		this.scoreboardTools = new ScoreboardTools(p);
+		this.kitTools = new KitTools(Main.getInstance().getArenaManager().activeArena);
 		if (ConfigTools.getBungeecord()) {
 			this.joined = true;
 		} else {
 			this.joined = false;
 		}
-		this.buildmode = false;
-		this.setsign = false;
+		this.buildMode = false;
+		this.setSign = false;
 		this.arena = "";
 		this.ingame = false;
 		this.kills = DatenManager.getKills(uuid);
 		this.deaths = DatenManager.getDeaths(uuid);
 		this.killstreak = 0L;
-		this.inv = new ItemStack[] {};
+		this.inventory = new ItemStack[] {};
 		this.armor = null;
-		this.Level = 0;
-		this.Exp = 0;
-		this.FoodLevel = 20;
-		this.Health = 20;
-		this.Gamemode = ConfigTools.getGamemode();
-		if (!(invprofiles.containsKey(p))) {
-			invprofiles.put(p, new InventoryProfil());
+		this.level = 0;
+		this.exp = 0;
+		this.foodLevel = 20;
+		this.health = 20;
+		this.gamemode = ConfigTools.getGamemode();
+		
+		if (!(invProfiles.containsKey(p))) {
+			invProfiles.put(p, new InventoryProfil());
 		}
+		
 		if (ConfigTools.getScoreboard() && joined) {
+		
 			Bukkit.getScheduler().runTaskLater(Main.getInstance(), new Runnable() {
 
 				@Override
 				public void run() {
 					Manager.setScoreboard(p);
 				}
+			
 			}, 5);
+		
 		}
+		
 	}
 
 	public ScoreboardTools getScoreboardtools() {
-		return scoreboardtools;
+		return scoreboardTools;
 	}
 
 	public KitTools getKittools() {
-		return kittools;
+		return kitTools;
 	}
 
 	public boolean getJoined() {
@@ -88,11 +94,11 @@ public class PlayerProfil {
 	}
 
 	public boolean getBuildmode() {
-		return buildmode;
+		return buildMode;
 	}
 	
 	public boolean getSetsign() {
-		return setsign;
+		return setSign;
 	}
 
 	public String getArena() {
@@ -116,7 +122,7 @@ public class PlayerProfil {
 	}
 
 	public ItemStack[] getInv() {
-		return inv;
+		return inventory;
 	}
 
 	public ItemStack[] getArmor() {
@@ -124,27 +130,27 @@ public class PlayerProfil {
 	}
 
 	public int getLevel() {
-		return Level;
+		return level;
 	}
 
 	public float getExp() {
-		return Exp;
+		return exp;
 	}
 
 	public int getFoodLevel() {
-		return FoodLevel;
+		return foodLevel;
 	}
 
 	public int getHealth() {
-		return Health;
+		return health;
 	}
 
 	public GameMode getGamemode() {
-		return Gamemode;
+		return gamemode;
 	}
 
 	public void setKittools(KitTools kittools) {
-		this.kittools = kittools;
+		this.kitTools = kittools;
 	}
 
 	public void setJoined(boolean joined) {
@@ -152,11 +158,11 @@ public class PlayerProfil {
 	}
 
 	public void setBuildmode(boolean buildmode) {
-		this.buildmode = buildmode;
+		this.buildMode = buildmode;
 	}
 	
 	public void setSetsign(boolean setsign) {
-		this.setsign = setsign;
+		this.setSign = setsign;
 	}
 
 	public void setArena(String arena) {
@@ -171,8 +177,8 @@ public class PlayerProfil {
 		this.killstreak = killstreak;
 	}
 
-	public void setInv(ItemStack[] inv) {
-		this.inv = inv;
+	public void setInv(ItemStack[] inventory) {
+		this.inventory = inventory;
 	}
 
 	public void setArmor(ItemStack[] armor) {
@@ -180,48 +186,50 @@ public class PlayerProfil {
 	}
 
 	public void setLevel(int level) {
-		Level = level;
+		this.level = level;
 	}
 
 	public void setExp(float exp) {
-		Exp = exp;
+		this.exp = exp;
 	}
 
 	public void setFoodLevel(int foodLevel) {
-		FoodLevel = foodLevel;
+		this.foodLevel = foodLevel;
 	}
 
 	public void setHealth(int health) {
-		Health = health;
+		this.health = health;
 	}
 
 	public void setGamemode(GameMode gamemode) {
-		Gamemode = gamemode;
+		this.gamemode = gamemode;
 	}
 
 	public void addKills(Long kills) {
-		this.kills = this.kills + kills;
+		this.kills += kills;
 	}
 
 	public void addDeaths(Long deaths) {
-		this.deaths = this.deaths + deaths;
+		this.deaths += deaths;
 	}
 
 	public void addKillstreak(Long killstreak) {
-		this.killstreak = this.killstreak + killstreak;
+		this.killstreak += killstreak;
 	}
 
 	public void reloadProfil() {
-		if (invprofiles.containsKey(p)) {
-			invprofiles.get(p).reloadInventorys();
+		if (invProfiles.containsKey(player)) {
+			invProfiles.get(player).reloadInventorys();
 		}
 	}
 
 	public void UploadStats() {
 		DatenManager.setKills(uuid, kills);
 		DatenManager.setDeaths(uuid, deaths);
-		if (invprofiles.containsKey(p)) {
-			invprofiles.remove(p);
+		
+		if (invProfiles.containsKey(player)) {
+			invProfiles.remove(player);
 		}
+		
 	}
 }
