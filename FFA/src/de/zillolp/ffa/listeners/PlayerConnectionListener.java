@@ -21,27 +21,27 @@ public class PlayerConnectionListener implements Listener {
 
 	@EventHandler
 	public void on(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
-		DatenManager.createPlayer(p);
+		Player player = e.getPlayer();
+		DatenManager.createPlayer(player);
 		Bukkit.getScheduler().runTaskLater(Main.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {
-				PlayerProfil profil = new PlayerProfil(p);
-				if (playerprofiles.containsKey(p)) {
-					playerprofiles.replace(p, profil);
+				PlayerProfil profil = new PlayerProfil(player);
+				if (playerprofiles.containsKey(player)) {
+					playerprofiles.replace(player, profil);
 				} else {
-					playerprofiles.put(p, profil);
+					playerprofiles.put(player, profil);
 				}
 			}
 		}, 5);
 		if (ConfigTools.getBungeecord()) {
-			e.setJoinMessage(LanguageTools.getJOIN_MESSAGE(p));
+			e.setJoinMessage(LanguageTools.getJOIN_MESSAGE(player));
 
 			String arena = Main.getInstance().getArenaManager().active_arena;
 			if (arena != null) {
 				LocationTools locationtools = new LocationTools(arena);
-				p.teleport(locationtools.loadLocation("Spawn"));
+				player.teleport(locationtools.loadLocation("Spawn"));
 			}
 		}
 	}
