@@ -3,18 +3,19 @@ package de.zillolp.ffa.profiles;
 import org.bukkit.inventory.Inventory;
 
 public class InventoryProfil {
-	private Inventory Arenainv;
+	private Inventory arenaInventory;
 
-	public Inventory getArenainv() {
-		return Arenainv;
+	public Inventory getArenaInventory() {
+		return arenaInventory;
 	}
 
-	public Inventory setArenainv(Inventory arenainv) {
-		Arenainv = arenainv;
-		return Arenainv;
+	public Inventory setArenaInventory(Inventory arenainv) {
+		arenaInventory = arenainv;
+		return arenaInventory;
 	}
 
 	public void reloadInventorys() {
-		setArenainv(null);
+		setArenaInventory(null);
 	}
+	
 }

@@ -57,7 +57,7 @@ public class ArenaEditListener implements Listener {
 								player.sendMessage(
 										PREFIX + "§7Du hast das §eKit §7für die Arena §b" + arena + " §7gesetzt.");
 							}
-							Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenainv());
+							Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 						} else if (clicktype == ClickType.RIGHT) {
 							player.closeInventory();
 							kittools.loadKit(player);
@@ -89,7 +89,7 @@ public class ArenaEditListener implements Listener {
 								player.sendMessage(PREFIX + "§7Teams sind für die Arena §b" + arena + " §7nun §aerlaubt.");
 							}
 						}
-						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					} else if (itemtype == XMaterial.SANDSTONE.parseMaterial()) {
 						LocationTools locationtools = new LocationTools(arena);
 						if (itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().BLOCKS_ACTIVATED)) {
@@ -111,7 +111,7 @@ public class ArenaEditListener implements Listener {
 										PREFIX + "§7Blöcke Platzieren ist in der Arena §b" + arena + " §aaktiviert.");
 							}
 						}
-						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					} else if (itemtype == XMaterial.OAK_SIGN.parseMaterial()
 							&& itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().SET_SIGN)) {
 						playerprofil.setSetsign(true);
@@ -131,7 +131,7 @@ public class ArenaEditListener implements Listener {
 							player.sendMessage(
 									PREFIX + "§7Du hast die §eObere Ecke §7für die Arena §b" + arena + " §7gesetzt.");
 						}
-						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					} else if (itemtype == XMaterial.MAGMA_CREAM.parseMaterial()
 							&& itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().SET_SPAWN)) {
 						LocationTools locationtools = new LocationTools(arena, player.getLocation());
@@ -142,7 +142,7 @@ public class ArenaEditListener implements Listener {
 						} else {
 							player.sendMessage(PREFIX + "§7Du hast den §eSpawn §7für die Arena §b" + arena + " §7gesetzt.");
 						}
-						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					} else if (itemtype == XMaterial.PLAYER_HEAD.parseMaterial()
 							&& itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().SET_BUTTOMCORNER)) {
 						LocationTools locationtools = new LocationTools(arena, player.getLocation());
@@ -154,7 +154,7 @@ public class ArenaEditListener implements Listener {
 							player.sendMessage(
 									PREFIX + "§7Du hast die §eUntere Ecke §7für die Arena §b" + arena + " §7gesetzt.");
 						}
-						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					}
 				}
 			}

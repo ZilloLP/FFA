@@ -96,9 +96,9 @@ public class FFACommand implements CommandExecutor {
 							PlayerProfil playerprofil = playerprofiles.get(player);
 							playerprofil.setArena(name);
 							InventoryProfil invprofil = invprofiles.get(player);
-							Inventory inv = invprofil.getArenainv();
+							Inventory inv = invprofil.getArenaInventory();
 							if (inv == null) {
-								inv = invprofil.setArenainv(Bukkit.createInventory(null, 3 * 9, Main.getInstance().getInventorySetter().TITLE));
+								inv = invprofil.setArenaInventory(Bukkit.createInventory(null, 3 * 9, Main.getInstance().getInventorySetter().TITLE));
 							}
 							Main.getInstance().getInventorySetter().setDesign(player, inv);
 							Main.getInstance().getInventorySetter().setArenainv(player, inv);
