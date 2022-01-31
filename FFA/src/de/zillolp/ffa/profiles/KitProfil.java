@@ -4,12 +4,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class KitProfil {
 	private String arena;
-	private ItemStack[] inv;
+	private ItemStack[] inventory;
 	private ItemStack[] armor;
 
 	public KitProfil(String arena, ItemStack[] inv, ItemStack[] armor) {
 		this.arena = arena;
-		this.inv = inv;
+		this.inventory = inv;
 		this.armor = armor;
 	}
 
@@ -18,7 +18,7 @@ public class KitProfil {
 	}
 
 	public ItemStack[] getInv() {
-		return inv;
+		return inventory;
 	}
 
 	public ItemStack[] getArmor() {
