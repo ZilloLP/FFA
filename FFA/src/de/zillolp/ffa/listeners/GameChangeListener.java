@@ -15,26 +15,27 @@ public class GameChangeListener implements Listener {
 
 	@EventHandler
 	public void on(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
+		Player player = e.getPlayer();
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(player);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				String arena = Main.getInstance().getArenaManager().active_arena;
 				if (arena != null) {
+					
 					LocationTools locationtools = new LocationTools(arena);
-					Location loc = p.getLocation();
+					Location location = player.getLocation();
 
 					if (locationtools != null) {
-						if (checkOnSpawn(loc, locationtools, 0)) {
+						if (checkOnSpawn(location, locationtools, 0)) {
 							if (playerprofil.getIngame()) {
-								p.getInventory().setArmorContents(null);
-								p.getInventory().clear();
+								player.getInventory().setArmorContents(null);
+								player.getInventory().clear();
 								playerprofil.setIngame(false);
 							}
 						} else {
 							if (!(playerprofil.getIngame())) {
 								KitTools kittools = new KitTools(arena);
-								kittools.loadKit(p);
+								kittools.loadKit(player);
 								playerprofil.setIngame(true);
 							}
 						}
@@ -44,10 +45,10 @@ public class GameChangeListener implements Listener {
 		}
 	}
 
-	public static boolean checkOnSpawn(Location loc, LocationTools locationtools, int range) {
-		double x = loc.getBlockX();
-		double y = loc.getBlockY();
-		double z = loc.getBlockZ();
+	public static boolean checkOnSpawn(Location location, LocationTools locationtools, int range) {
+		double x = location.getBlockX();
+		double y = location.getBlockY();
+		double z = location.getBlockZ();
 
 		Location bottom_loc = locationtools.loadLocation("Bottomcorner");
 		double bottom_x = bottom_loc.getBlockX();
