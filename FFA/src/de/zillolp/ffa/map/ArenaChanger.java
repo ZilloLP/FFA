@@ -17,14 +17,13 @@ public class ArenaChanger implements Runnable {
 	public static int seconds;
 
 	public ArenaChanger() {
-		seconds = ConfigTools.getMapchangeTime() + 1;
+		seconds = ConfigTools.getMapchangeTime();
 		sched = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), this, 0, 20);
 	}
 
 	@Override
 	public void run() {
 		String PREFIX = LanguageTools.getPREFIX();
-		seconds--;
 		switch (seconds) {
 		case 60:
 		case 30:
@@ -63,6 +62,7 @@ public class ArenaChanger implements Runnable {
 			seconds = ConfigTools.getMapchangeTime() + 1;
 			break;
 		}
+		seconds--;
 	}
 
 	private void sendBroadcast(String message) {
