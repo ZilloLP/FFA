@@ -12,7 +12,7 @@ public class DatenManager {
 	private static boolean status;
 	private static boolean connected;
 	private static MySQL mysql;
-	private static SQLite sqlite;
+	private static SQLite sqLite;
 
 	public DatenManager() {
 		status = ConfigTools.getMySQL();
@@ -22,8 +22,8 @@ public class DatenManager {
 			connected = mysql.connected;
 		} else {
 			connected = true;
-			sqlite = new SQLite();
-			sqlite.connect();
+			sqLite = new SQLite();
+			sqLite.connect();
 		}
 	}
 
@@ -40,21 +40,21 @@ public class DatenManager {
 	}
 
 	public static SQLite getSqlite() {
-		return sqlite;
+		return sqLite;
 	}
 
-	public static void createPlayer(Player p) {
-		String uuid = p.getUniqueId().toString();
+	public static void createPlayer(Player player) {
+		String uuid = player.getUniqueId().toString();
 		if (!(inPlayers(uuid))) {
 			String query = "INSERT INTO " + table + "(UUID, NAME, KILLS, DEATHS) VALUES ('" + uuid + "', '"
-					+ p.getName() + "', '0', '0');";
+					+ player.getName() + "', '0', '0');";
 			if (status) {
 				mysql.update(query);
 			} else {
-				sqlite.update(query);
+				sqLite.update(query);
 			}
 		} else {
-			checkName(p);
+			checkName(player);
 		}
 	}
 
@@ -67,13 +67,13 @@ public class DatenManager {
 	}
 
 	private static boolean inPlayers(String uuid) {
-		String query = "SELECT * FROM " + table + " WHERE UUID= '" + uuid + "'";
+		String query = "SELECT * FROM " + table + " WHERE UUID= '" + uuid + "';";
 		try {
 			ResultSet rs;
 			if (status) {
 				rs = mysql.query(query);
 			} else {
-				rs = sqlite.query(query);
+				rs = sqLite.query(query);
 			}
 			if (rs.next()) {
 				return rs.getString("UUID") != null;
@@ -87,13 +87,13 @@ public class DatenManager {
 
 	private static String getName(String uuid) {
 		String i = "";
-		String query = "SELECT * FROM " + table + " WHERE UUID= '" + uuid + "'";
+		String query = "SELECT * FROM " + table + " WHERE UUID= '" + uuid + "';";
 		try {
 			ResultSet rs;
 			if (status) {
 				rs = mysql.query(query);
 			} else {
-				rs = sqlite.query(query);
+				rs = sqLite.query(query);
 			}
 			if (rs.next() && rs.getString("NAME") == null) {
 				return i;
@@ -107,13 +107,13 @@ public class DatenManager {
 
 	public static Long getKills(String uuid) {
 		Long i = 0L;
-		String query = "SELECT * FROM " + table + " WHERE UUID= '" + uuid + "'";
+		String query = "SELECT * FROM " + table + " WHERE UUID= '" + uuid + "';";
 		try {
 			ResultSet rs;
 			if (status) {
 				rs = mysql.query(query);
 			} else {
-				rs = sqlite.query(query);
+				rs = sqLite.query(query);
 			}
 			if (rs.next() && Long.valueOf(rs.getLong("KILLS")) == null) {
 				return i;
@@ -127,13 +127,13 @@ public class DatenManager {
 
 	public static Long getDeaths(String uuid) {
 		Long i = 0L;
-		String query = "SELECT * FROM " + table + " WHERE UUID= '" + uuid + "'";
+		String query = "SELECT * FROM " + table + " WHERE UUID= '" + uuid + "';";
 		try {
 			ResultSet rs;
 			if (status) {
 				rs = mysql.query(query);
 			} else {
-				rs = sqlite.query(query);
+				rs = sqLite.query(query);
 			}
 			if (rs.next() && Long.valueOf(rs.getLong("DEATHS")) == null) {
 				return i;
@@ -150,7 +150,7 @@ public class DatenManager {
 		if (status) {
 			mysql.update(query);
 		} else {
-			sqlite.update(query);
+			sqLite.update(query);
 		}
 	}
 
@@ -159,7 +159,7 @@ public class DatenManager {
 		if (status) {
 			mysql.update(query);
 		} else {
-			sqlite.update(query);
+			sqLite.update(query);
 		}
 	}
 
@@ -168,25 +168,25 @@ public class DatenManager {
 		if (status) {
 			mysql.update(query);
 		} else {
-			sqlite.update(query);
+			sqLite.update(query);
 		}
 	}
 
 	public static ResultSet OrderBy(String type, int limit) {
-		String query = "SELECT UUID FROM " + table + " ORDER BY " + type.toUpperCase() + " DESC LIMIT " + limit;
+		String query = "SELECT UUID FROM " + table + " ORDER BY " + type.toUpperCase() + " DESC LIMIT " + limit + ";";
 		if (status) {
 			return mysql.query(query);
 		} else {
-			return sqlite.query(query);
+			return sqLite.query(query);
 		}
 	}
 
 	public static ResultSet OrderBy(String type) {
-		String query = "SELECT UUID FROM " + table + " ORDER BY " + type.toUpperCase() + " DESC";
+		String query = "SELECT UUID FROM " + table + " ORDER BY " + type.toUpperCase() + " DESC;";
 		if (status) {
 			return mysql.query(query);
 		} else {
-			return sqlite.query(query);
+			return sqLite.query(query);
 		}
 	}
 }
