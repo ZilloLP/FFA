@@ -51,7 +51,7 @@ public class MySQL {
 	public void connect() {
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE, USER, PASSWORD);
-			update("CREATE TABLE IF NOT EXISTS ffa_players(UUID varchar(64), NAME varchar(64), KILLS long, DEATHS long);");
+			update("CREATE TABLE IF NOT EXISTS ffa_players(UUID varchar(64), NAME varchar(64), KILLS long, DEATHS long, PRIMARY KEY (UUID));");
 			if (english) {
 				Bukkit.getConsoleSender().sendMessage(PREFIX + "§aThe connection with MySQL has been established!");
 			} else {
