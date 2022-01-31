@@ -17,21 +17,21 @@ public class RespawnListener implements Listener {
 
 	@EventHandler
 	public void on(PlayerDeathEvent e) {
-		Player p = e.getEntity().getPlayer();
-		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
+		Player player = e.getEntity().getPlayer();
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(player);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getIngame() && playerprofil.getJoined()) {
 				String PREFIX = LanguageTools.getPREFIX();
 				e.setDeathMessage(null);
 				e.setDroppedExp(0);
 				e.getDrops().clear();
-				Respawn(p, 1);
-				if (p.getKiller() != null) {
-					Player k = p.getKiller();
+				Respawn(player, 1);
+				if (player.getKiller() != null) {
+					Player k = player.getKiller();
 					PlayerProfil killerprofil = Main.getInstance().playerprofiles.get(k);
 					if (killerprofil != null) {
-						k.sendMessage(PREFIX + LanguageTools.getKILLED_PLAYER(p, k));
-						p.sendMessage(PREFIX + LanguageTools.getDIED_BY_PLAYER(p, k));
+						k.sendMessage(PREFIX + LanguageTools.getKILLED_PLAYER(player, k));
+						player.sendMessage(PREFIX + LanguageTools.getDIED_BY_PLAYER(player, k));
 						killerprofil.addKillstreak(1L);
 						killerprofil.addKills(1L);
 						Long killstreak = killerprofil.getKillstreak();
@@ -41,11 +41,11 @@ public class RespawnListener implements Listener {
 						k.setHealth(20);
 					}
 				} else {
-					p.sendMessage(PREFIX + LanguageTools.getPLAYER_DIED());
+					player.sendMessage(PREFIX + LanguageTools.getPLAYER_DIED());
 				}
 				Long killstreak = playerprofil.getKillstreak();
 				if (killstreak >= 3) {
-					p.sendMessage(PREFIX + LanguageTools.getKILLSTREAK_LOSE(p));
+					player.sendMessage(PREFIX + LanguageTools.getKILLSTREAK_LOSE(player));
 				}
 				playerprofil.addDeaths(1L);
 				playerprofil.setKillstreak(0L);
