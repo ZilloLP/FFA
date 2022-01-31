@@ -54,8 +54,8 @@ public class ArenaManager {
 	}
 
 	public void checkArenas() {
-		ConfigUtil configutil = Main.getInstance().getConfigCreation().getManager().getNewConfig("locations.yml");
-		ConfigurationSection section = configutil.getConfigurationSection("Arenas");
+		ConfigUtil configUtil = Main.getInstance().getConfigCreation().getManager().getNewConfig("locations.yml");
+		ConfigurationSection section = configUtil.getConfigurationSection("Arenas");
 		names = new LinkedList<>();
 		if (section != null) {
 			if (section.getKeys(false).size() > 0) {
