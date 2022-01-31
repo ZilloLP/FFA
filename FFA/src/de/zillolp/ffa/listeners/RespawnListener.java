@@ -82,12 +82,12 @@ public class RespawnListener implements Listener {
 		}
 	}
 
-	private void Respawn(Player p, int Time) {
+	private void Respawn(Player player, int Time) {
 		Bukkit.getScheduler().runTaskLater(Main.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {
-				p.spigot().respawn();
+				player.spigot().respawn();
 			}
 		}, Time);
 	}
