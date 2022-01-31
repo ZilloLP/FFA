@@ -36,11 +36,11 @@ public class PlayerProfil {
 	private int health;
 	private GameMode gamemode;
 
-	public PlayerProfil(Player p) {
+	public PlayerProfil(Player player) {
 		this.invProfiles = Main.getInstance().invprofiles;
-		this.player = p;
-		this.uuid = p.getUniqueId().toString();
-		this.scoreboardTools = new ScoreboardTools(p);
+		this.player = player;
+		this.uuid = player.getUniqueId().toString();
+		this.scoreboardTools = new ScoreboardTools(player);
 		this.kitTools = new KitTools(Main.getInstance().getArenaManager().activeArena);
 		if (ConfigTools.getBungeecord()) {
 			this.joined = true;
@@ -62,8 +62,8 @@ public class PlayerProfil {
 		this.health = 20;
 		this.gamemode = ConfigTools.getGamemode();
 		
-		if (!(invProfiles.containsKey(p))) {
-			invProfiles.put(p, new InventoryProfil());
+		if (!(invProfiles.containsKey(player))) {
+			invProfiles.put(player, new InventoryProfil());
 		}
 		
 		if (ConfigTools.getScoreboard() && joined) {
@@ -72,7 +72,7 @@ public class PlayerProfil {
 
 				@Override
 				public void run() {
-					Manager.setScoreboard(p);
+					Manager.setScoreboard(player);
 				}
 			
 			}, 5);
