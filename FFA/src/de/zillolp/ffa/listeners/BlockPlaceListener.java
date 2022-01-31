@@ -21,7 +21,6 @@ import de.zillolp.ffa.xclasses.XMaterial;
 public class BlockPlaceListener implements Listener {
 	private static ArrayList<Location> blocks = new ArrayList<>();
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void on(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
