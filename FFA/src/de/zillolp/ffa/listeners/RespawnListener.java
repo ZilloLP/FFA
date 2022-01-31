@@ -55,17 +55,17 @@ public class RespawnListener implements Listener {
 
 	@EventHandler
 	public void on(PlayerRespawnEvent e) {
-		Player p = e.getPlayer();
-		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
+		Player player = e.getPlayer();
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(player);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getIngame() && playerprofil.getJoined()) {
 				playerprofil.setIngame(false);
-				p.getInventory().clear();
-				p.getInventory().setArmorContents(null);
-				p.setLevel(0);
-				p.setExp(0);
-				p.setFoodLevel(20);
-				p.setHealth(20);
+				player.getInventory().clear();
+				player.getInventory().setArmorContents(null);
+				player.setLevel(0);
+				player.setExp(0);
+				player.setFoodLevel(20);
+				player.setHealth(20);
 				String arena = Main.getInstance().getArenaManager().active_arena;
 				if (arena != null) {
 					LocationTools locationtools = new LocationTools(arena);
@@ -73,10 +73,10 @@ public class RespawnListener implements Listener {
 					e.setRespawnLocation(loc);
 				}
 				for (Player all : Bukkit.getOnlinePlayers()) {
-					all.hidePlayer(p);
-					all.showPlayer(p);
-					p.hidePlayer(all);
-					p.showPlayer(all);
+					all.hidePlayer(player);
+					all.showPlayer(player);
+					player.hidePlayer(all);
+					player.showPlayer(all);
 				}
 			}
 		}
