@@ -41,7 +41,7 @@ public class PlayerProfil {
 		this.p = p;
 		this.uuid = p.getUniqueId().toString();
 		this.scoreboardtools = new ScoreboardTools(p);
-		this.kittools = new KitTools(Main.getInstance().getArenaManager().active_arena);
+		this.kittools = new KitTools(Main.getInstance().getArenaManager().activeArena);
 		if (ConfigTools.getBungeecord()) {
 			this.joined = true;
 		} else {

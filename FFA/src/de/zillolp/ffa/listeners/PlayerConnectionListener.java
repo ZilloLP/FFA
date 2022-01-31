@@ -38,7 +38,7 @@ public class PlayerConnectionListener implements Listener {
 		if (ConfigTools.getBungeecord()) {
 			e.setJoinMessage(LanguageTools.getJOIN_MESSAGE(player));
 
-			String arena = Main.getInstance().getArenaManager().active_arena;
+			String arena = Main.getInstance().getArenaManager().activeArena;
 			if (arena != null) {
 				LocationTools locationtools = new LocationTools(arena);
 				player.teleport(locationtools.loadLocation("Spawn"));

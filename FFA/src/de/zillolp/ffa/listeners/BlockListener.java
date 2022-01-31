@@ -88,7 +88,7 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(EntityDamageByBlockEvent e) {
-		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().active_arena);
+		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().activeArena);
 		Location location = locationtools.loadLocation("Spawn");
 		if (location != null) {
 			if (location.getWorld().getName().equalsIgnoreCase(e.getEntity().getWorld().getName())) {
@@ -199,7 +199,7 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(FoodLevelChangeEvent e) {
-		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().active_arena);
+		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().activeArena);
 		Location location = locationtools.loadLocation("Spawn");
 		if (location != null) {
 			if (location.getWorld().getName().equalsIgnoreCase(e.getEntity().getWorld().getName())) {
@@ -223,7 +223,7 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(CreatureSpawnEvent e) {
-		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().active_arena);
+		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().activeArena);
 		Location location = locationtools.loadLocation("Spawn");
 		if (location != null) {
 			if (location.getWorld().getName().equalsIgnoreCase(e.getLocation().getWorld().getName())) {
@@ -274,7 +274,7 @@ public class BlockListener implements Listener {
 
 	@EventHandler
 	public void on(WeatherChangeEvent e) {
-		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().active_arena);
+		LocationTools locationtools = new LocationTools(Main.getInstance().getArenaManager().activeArena);
 		Location location = locationtools.loadLocation("Spawn");
 		if (location != null) {
 			if (location.getWorld().getName().equalsIgnoreCase(e.getWorld().getName())) {

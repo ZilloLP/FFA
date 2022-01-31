@@ -40,7 +40,7 @@ public class ArenaChanger implements Runnable {
 			break;
 		case 0:
 			Main.getInstance().getArenaManager().loadArenas();
-			String arena = Main.getInstance().getArenaManager().active_arena;
+			String arena = Main.getInstance().getArenaManager().activeArena;
 			LocationTools locationtools = new LocationTools(arena);
 			Location loc = locationtools.loadLocation("Spawn");
 			BlockPlaceListener.replaceAll();

@@ -12,19 +12,19 @@ import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.utils.ConfigUtil;
 
 public class ArenaManager {
-	public String active_arena;
-	public ArenaChanger arenachanger;
+	public String activeArena;
+	public ArenaChanger arenaChanger;
 	public LinkedList<String> names;
 
 	public ArenaManager() {
 		loadArenas();
-		if (active_arena != null) {
-			if (arenachanger != null) {
-				arenachanger.stop();
-				arenachanger = null;
+		if (activeArena != null) {
+			if (arenaChanger != null) {
+				arenaChanger.stop();
+				arenaChanger = null;
 			}
 			if (ConfigTools.getMapchange()) {
-				arenachanger = new ArenaChanger();
+				arenaChanger = new ArenaChanger();
 			}
 		}
 	}
@@ -33,23 +33,23 @@ public class ArenaManager {
 		checkArenas();
 		if (names.size() > 1) {
 			if (ConfigTools.getMapchange()) {
-				if (active_arena != null) {
+				if (activeArena != null) {
 					String arena = names.get(new Random().nextInt(names.size()));
-					if (active_arena.equalsIgnoreCase(arena)) {
-						names.remove(active_arena);
+					if (activeArena.equalsIgnoreCase(arena)) {
+						names.remove(activeArena);
 						arena = names.get(new Random().nextInt(names.size()));
-						names.add(active_arena);
+						names.add(activeArena);
 					}
-					active_arena = arena;
+					activeArena = arena;
 				} else {
-					active_arena = names.get(new Random().nextInt(names.size()));
+					activeArena = names.get(new Random().nextInt(names.size()));
 				}
 			} else {
-				active_arena = names.get(0);
+				activeArena = names.get(0);
 			}
 		} else if (names.size() == 1) {
 			ConfigTools.setMapchange(false);
-			active_arena = names.get(0);
+			activeArena = names.get(0);
 		}
 	}
 
@@ -71,13 +71,13 @@ public class ArenaManager {
 
 	public void refresh() {
 		loadArenas();
-		if (active_arena != null) {
-			if (arenachanger != null) {
-				arenachanger.stop();
-				arenachanger = null;
+		if (activeArena != null) {
+			if (arenaChanger != null) {
+				arenaChanger.stop();
+				arenaChanger = null;
 			}
 			if (ConfigTools.getMapchange()) {
-				arenachanger = new ArenaChanger();
+				arenaChanger = new ArenaChanger();
 			}
 		}
 	}

@@ -29,7 +29,7 @@ public class BlockPlaceListener implements Listener {
 			String PREFIX = LanguageTools.getPREFIX();
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
 				if (playerprofil.getIngame()) {
-					String arena = Main.getInstance().getArenaManager().active_arena;
+					String arena = Main.getInstance().getArenaManager().activeArena;
 					LocationTools locationtools = new LocationTools(arena);
 					if (locationtools.getBuild()) {
 						Block block = e.getBlock();

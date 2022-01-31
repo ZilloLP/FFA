@@ -191,7 +191,7 @@ public class Main extends JavaPlugin {
 				}
 			}, 5);
 			if (ConfigTools.getBungeecord()) {
-				String arena = arenaManager.active_arena;
+				String arena = arenaManager.activeArena;
 				if (arena != null) {
 					LocationTools locationtools = new LocationTools(arena);
 					all.teleport(locationtools.loadLocation("Spawn"));

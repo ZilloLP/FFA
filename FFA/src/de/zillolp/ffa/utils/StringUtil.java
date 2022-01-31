@@ -126,9 +126,9 @@ public class StringUtil {
 
 	public static String replaceMap(String message) {
 		if (message.contains("%map%")) {
-			String arena = Main.getInstance().getArenaManager().active_arena;
+			String arena = Main.getInstance().getArenaManager().activeArena;
 			if (arena != null) {
-				message = message.replace("%map%", Main.getInstance().getArenaManager().active_arena);
+				message = message.replace("%map%", Main.getInstance().getArenaManager().activeArena);
 			} else {
 				message = message.replace("%map%", "?");
 			}
@@ -138,7 +138,7 @@ public class StringUtil {
 
 	public static String replaceTeams(String message) {
 		if (message.contains("%teams%")) {
-			String arena = Main.getInstance().getArenaManager().active_arena;
+			String arena = Main.getInstance().getArenaManager().activeArena;
 			if (arena != null) {
 				LocationTools locationtools = new LocationTools(arena);
 				if (locationtools.getTeams()) {
@@ -190,7 +190,7 @@ public class StringUtil {
 
 	public static String replaceTime(String message) {
 		if (message.contains("%time%")) {
-			ArenaChanger arenachanger = Main.getInstance().getArenaManager().arenachanger;
+			ArenaChanger arenachanger = Main.getInstance().getArenaManager().arenaChanger;
 			if (arenachanger != null) {
 				int seconds = ArenaChanger.seconds;
 				int Hours = (seconds % 86400) / 3600;

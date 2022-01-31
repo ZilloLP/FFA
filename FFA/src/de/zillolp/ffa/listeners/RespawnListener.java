@@ -66,7 +66,7 @@ public class RespawnListener implements Listener {
 				player.setExp(0);
 				player.setFoodLevel(20);
 				player.setHealth(20);
-				String arena = Main.getInstance().getArenaManager().active_arena;
+				String arena = Main.getInstance().getArenaManager().activeArena;
 				if (arena != null) {
 					LocationTools locationtools = new LocationTools(arena);
 					Location loc = locationtools.loadLocation("Spawn");

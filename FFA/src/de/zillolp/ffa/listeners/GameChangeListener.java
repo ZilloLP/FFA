@@ -19,7 +19,7 @@ public class GameChangeListener implements Listener {
 		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(player);
 		if (playerprofil != null) {
 			if (!(playerprofil.getBuildmode()) && playerprofil.getJoined()) {
-				String arena = Main.getInstance().getArenaManager().active_arena;
+				String arena = Main.getInstance().getArenaManager().activeArena;
 				if (arena != null) {
 					
 					LocationTools locationtools = new LocationTools(arena);
