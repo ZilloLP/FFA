@@ -27,18 +27,18 @@ public class RespawnListener implements Listener {
 				e.getDrops().clear();
 				Respawn(player, 1);
 				if (player.getKiller() != null) {
-					Player k = player.getKiller();
-					PlayerProfil killerprofil = Main.getInstance().playerprofiles.get(k);
+					Player killer = player.getKiller();
+					PlayerProfil killerprofil = Main.getInstance().playerprofiles.get(killer);
 					if (killerprofil != null) {
-						k.sendMessage(PREFIX + LanguageTools.getKILLED_PLAYER(player, k));
-						player.sendMessage(PREFIX + LanguageTools.getDIED_BY_PLAYER(player, k));
+						killer.sendMessage(PREFIX + LanguageTools.getKILLED_PLAYER(player, killer));
+						player.sendMessage(PREFIX + LanguageTools.getDIED_BY_PLAYER(player, killer));
 						killerprofil.addKillstreak(1L);
 						killerprofil.addKills(1L);
 						Long killstreak = killerprofil.getKillstreak();
 						if (killstreak == 3 || killstreak % 5 == 0) {
-							Bukkit.broadcastMessage(PREFIX + LanguageTools.getKILLSTREAK_WIN(k));
+							Bukkit.broadcastMessage(PREFIX + LanguageTools.getKILLSTREAK_WIN(killer));
 						}
-						k.setHealth(20);
+						killer.setHealth(20);
 					}
 				} else {
 					player.sendMessage(PREFIX + LanguageTools.getPLAYER_DIED());
