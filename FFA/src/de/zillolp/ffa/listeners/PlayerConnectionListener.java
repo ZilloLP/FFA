@@ -13,36 +13,35 @@ import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 import de.zillolp.ffa.stats.DatenManager;
 
 public class PlayerConnectionListener implements Listener {
-	private HashMap<Player, PlayerProfil> playerprofiles = Main.playerprofiles;
+	private HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
 
 	@EventHandler
 	public void on(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
-		DatenManager.createPlayer(p);
-		Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+		Player player = e.getPlayer();
+		DatenManager.createPlayer(player);
+		Bukkit.getScheduler().runTaskLater(Main.getInstance(), new Runnable() {
 
 			@Override
 			public void run() {
-				PlayerProfil profil = new PlayerProfil(p);
-				if (playerprofiles.containsKey(p)) {
-					playerprofiles.replace(p, profil);
+				PlayerProfil profil = new PlayerProfil(player);
+				if (playerprofiles.containsKey(player)) {
+					playerprofiles.replace(player, profil);
 				} else {
-					playerprofiles.put(p, profil);
+					playerprofiles.put(player, profil);
 				}
 			}
 		}, 5);
 		if (ConfigTools.getBungeecord()) {
-			e.setJoinMessage(LanguageTools.getJOIN_MESSAGE(p));
+			e.setJoinMessage(LanguageTools.getJOIN_MESSAGE(player));
 
-			String arena = ArenaManager.active_arena;
+			String arena = Main.getInstance().getArenaManager().activeArena;
 			if (arena != null) {
 				LocationTools locationtools = new LocationTools(arena);
-				p.teleport(locationtools.loadLocation("Spawn"));
+				player.teleport(locationtools.loadLocation("Spawn"));
 			}
 		}
 	}

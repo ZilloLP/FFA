@@ -16,7 +16,6 @@ import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.map.ArenaChanger;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.PlayerProfil;
 
 public class StringUtil {
@@ -116,7 +115,7 @@ public class StringUtil {
 	}
 
 	public static String replaceKills(Player p, String message) {
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (message.contains("%kills%")) {
 				message = message.replace("%kills%", String.valueOf(playerprofil.getKills()));
@@ -127,9 +126,9 @@ public class StringUtil {
 
 	public static String replaceMap(String message) {
 		if (message.contains("%map%")) {
-			String arena = ArenaManager.active_arena;
+			String arena = Main.getInstance().getArenaManager().activeArena;
 			if (arena != null) {
-				message = message.replace("%map%", ArenaManager.active_arena);
+				message = message.replace("%map%", Main.getInstance().getArenaManager().activeArena);
 			} else {
 				message = message.replace("%map%", "?");
 			}
@@ -139,7 +138,7 @@ public class StringUtil {
 
 	public static String replaceTeams(String message) {
 		if (message.contains("%teams%")) {
-			String arena = ArenaManager.active_arena;
+			String arena = Main.getInstance().getArenaManager().activeArena;
 			if (arena != null) {
 				LocationTools locationtools = new LocationTools(arena);
 				if (locationtools.getTeams()) {
@@ -163,7 +162,7 @@ public class StringUtil {
 	}
 
 	public static String replaceDeaths(Player p, String message) {
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (message.contains("%deaths%")) {
 				message = message.replace("%deaths%", String.valueOf(playerprofil.getDeaths()));
@@ -173,7 +172,7 @@ public class StringUtil {
 	}
 
 	public static String replaceStreak(Player p, String message) {
-		PlayerProfil playerprofil = Main.playerprofiles.get(p);
+		PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(p);
 		if (playerprofil != null) {
 			if (message.contains("%streak%")) {
 				message = message.replace("%streak%", String.valueOf(playerprofil.getKillstreak()));
@@ -191,7 +190,7 @@ public class StringUtil {
 
 	public static String replaceTime(String message) {
 		if (message.contains("%time%")) {
-			ArenaChanger arenachanger = ArenaManager.arenachanger;
+			ArenaChanger arenachanger = Main.getInstance().getArenaManager().arenaChanger;
 			if (arenachanger != null) {
 				int seconds = ArenaChanger.seconds;
 				int Hours = (seconds % 86400) / 3600;

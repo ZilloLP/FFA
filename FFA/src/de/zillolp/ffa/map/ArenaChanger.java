@@ -17,14 +17,13 @@ public class ArenaChanger implements Runnable {
 	public static int seconds;
 
 	public ArenaChanger() {
-		seconds = ConfigTools.getMapchangeTime() + 1;
-		sched = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.plugin, this, 0, 20);
+		seconds = ConfigTools.getMapchangeTime();
+		sched = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), this, 0, 20);
 	}
 
 	@Override
 	public void run() {
 		String PREFIX = LanguageTools.getPREFIX();
-		seconds--;
 		switch (seconds) {
 		case 60:
 		case 30:
@@ -40,13 +39,13 @@ public class ArenaChanger implements Runnable {
 			sendBroadcast(PREFIX + LanguageTools.getARENA_CHANGE_SECOND());
 			break;
 		case 0:
-			ArenaManager.loadArenas();
-			String arena = ArenaManager.active_arena;
+			Main.getInstance().getArenaManager().loadArenas();
+			String arena = Main.getInstance().getArenaManager().activeArena;
 			LocationTools locationtools = new LocationTools(arena);
 			Location loc = locationtools.loadLocation("Spawn");
 			BlockPlaceListener.replaceAll();
 			for (Player all : Bukkit.getOnlinePlayers()) {
-				PlayerProfil playerprofil = Main.playerprofiles.get(all);
+				PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(all);
 				if (playerprofil != null && playerprofil.getJoined()) {
 					playerprofil.setKittools(new KitTools(arena));
 					all.getInventory().setArmorContents(null);
@@ -63,11 +62,12 @@ public class ArenaChanger implements Runnable {
 			seconds = ConfigTools.getMapchangeTime() + 1;
 			break;
 		}
+		seconds--;
 	}
 
 	private void sendBroadcast(String message) {
 		for (Player all : Bukkit.getOnlinePlayers()) {
-			PlayerProfil playerprofil = Main.playerprofiles.get(all);
+			PlayerProfil playerprofil = Main.getInstance().playerprofiles.get(all);
 			if (playerprofil != null && playerprofil.getJoined()) {
 				all.sendMessage(message);
 			}

@@ -16,10 +16,10 @@ public class AnvilEventOld implements Listener {
 
 	@EventHandler
 	public void on(InventoryClickEvent e) {
-		Inventory inv = e.getClickedInventory();
-		if (inv != null && e.getSlot() == 2 && e.getAction() != InventoryAction.NOTHING) {
-			if (inv.getType() == InventoryType.ANVIL) {
-				ItemStack craftItem = inv.getItem(2);
+		Inventory inventory = e.getClickedInventory();
+		if (inventory != null && e.getSlot() == 2 && e.getAction() != InventoryAction.NOTHING) {
+			if (inventory.getType() == InventoryType.ANVIL) {
+				ItemStack craftItem = inventory.getItem(2);
 				if (craftItem != null && craftItem.getType() != Material.AIR) {
 					ItemMeta itemmeta = craftItem.getItemMeta();
 					if (itemmeta != null && itemmeta.getDisplayName() != null) {

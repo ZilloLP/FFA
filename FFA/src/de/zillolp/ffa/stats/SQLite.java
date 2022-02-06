@@ -17,14 +17,14 @@ import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.main.Main;
 
 public class SQLite {
-	private Main plugin = Main.plugin;
+	private Main plugin = Main.getInstance();
 	private String PREFIX = LanguageTools.getPREFIX();
 	private boolean english = ConfigTools.getEnglish();
 	private String dbname;
 	public Connection con;
 
 	public SQLite() {
-		dbname = Main.plugin.getConfig().getCurrentPath();
+		dbname = Main.getInstance().getConfig().getCurrentPath();
 	}
 
 	public void connect() {
@@ -73,7 +73,7 @@ public class SQLite {
 	}
 
 	public void update(String qre) {
-		if (!(Main.disabled)) {
+		if (!(Main.getInstance().disabled)) {
 			CompletableFuture.runAsync(() -> {
 				try {
 					con = getConnection();

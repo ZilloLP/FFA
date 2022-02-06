@@ -12,8 +12,8 @@ import org.bukkit.Bukkit;
 import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.utils.ConfigUtil;
 import de.zillolp.ffa.utils.ConfigManager;
+import de.zillolp.ffa.utils.ConfigUtil;
 
 public class MySQL {
 	private ConfigManager manager;
@@ -51,7 +51,7 @@ public class MySQL {
 	public void connect() {
 		try {
 			con = DriverManager.getConnection("jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE, USER, PASSWORD);
-			update("CREATE TABLE IF NOT EXISTS ffa_players(UUID varchar(64), NAME varchar(64), KILLS long, DEATHS long);");
+			update("CREATE TABLE IF NOT EXISTS ffa_players(UUID varchar(64), NAME varchar(64), KILLS long, DEATHS long, PRIMARY KEY (UUID));");
 			if (english) {
 				Bukkit.getConsoleSender().sendMessage(PREFIX + "§aThe connection with MySQL has been established!");
 			} else {
@@ -67,7 +67,7 @@ public class MySQL {
 						PREFIX + "§cDie Verbindung mit MySQL ist fehlgeschlagen! §4Fehler: " + e.getMessage());
 			}
 			connected = false;
-			Main.disabled = false;
+			Main.getInstance().disabled = false;
 		}
 	}
 
@@ -91,12 +91,12 @@ public class MySQL {
 						PREFIX + "§cDie Verbindung mit MySQL konnte nicht beendet werden! §4Fehler: " + e.getMessage());
 			}
 			connected = false;
-			Main.disabled = false;
+			Main.getInstance().disabled = false;
 		}
 	}
 
 	public void update(String qre) {
-		if (!(Main.disabled)) {
+		if (!(Main.getInstance().disabled)) {
 			CompletableFuture.runAsync(() -> {
 				if (con != null) {
 					try {

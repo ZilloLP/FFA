@@ -1,6 +1,6 @@
 package de.zillolp.ffa.config.tools;
 
-import de.zillolp.ffa.config.ConfigCreation;
+import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.utils.ConfigUtil;
 
 public class PermissionTools {
@@ -8,7 +8,7 @@ public class PermissionTools {
 	private static String ADMIN_PERMISSION;
 
 	public PermissionTools() {
-		configutil = ConfigCreation.manager.getNewConfig("permissions.yml");
+		configutil = Main.getInstance().getConfigCreation().getManager().getNewConfig("permissions.yml");
 		ADMIN_PERMISSION = configutil.getString("ADMIN_PERMISSION");
 	}
 

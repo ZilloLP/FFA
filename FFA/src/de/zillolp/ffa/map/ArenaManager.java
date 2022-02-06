@@ -5,63 +5,63 @@ import java.util.Random;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import de.zillolp.ffa.config.ConfigCreation;
 import de.zillolp.ffa.config.tools.ConfigTools;
 import de.zillolp.ffa.config.tools.KitTools;
 import de.zillolp.ffa.config.tools.LocationTools;
+import de.zillolp.ffa.main.Main;
 import de.zillolp.ffa.utils.ConfigUtil;
 
 public class ArenaManager {
-	public static String active_arena;
-	public static ArenaChanger arenachanger;
-	public static LinkedList<String> names;
+	public String activeArena;
+	public ArenaChanger arenaChanger;
+	public LinkedList<String> names;
 
 	public ArenaManager() {
 		loadArenas();
-		if (active_arena != null) {
-			if (arenachanger != null) {
-				arenachanger.stop();
-				arenachanger = null;
+		if (activeArena != null) {
+			if (arenaChanger != null) {
+				arenaChanger.stop();
+				arenaChanger = null;
 			}
 			if (ConfigTools.getMapchange()) {
-				arenachanger = new ArenaChanger();
+				arenaChanger = new ArenaChanger();
 			}
 		}
 	}
 
-	public static void loadArenas() {
+	public void loadArenas() {
 		checkArenas();
 		if (names.size() > 1) {
 			if (ConfigTools.getMapchange()) {
-				if (active_arena != null) {
+				if (activeArena != null) {
 					String arena = names.get(new Random().nextInt(names.size()));
-					if (active_arena.equalsIgnoreCase(arena)) {
-						names.remove(active_arena);
+					if (activeArena.equalsIgnoreCase(arena)) {
+						names.remove(activeArena);
 						arena = names.get(new Random().nextInt(names.size()));
-						names.add(active_arena);
+						names.add(activeArena);
 					}
-					active_arena = arena;
+					activeArena = arena;
 				} else {
-					active_arena = names.get(new Random().nextInt(names.size()));
+					activeArena = names.get(new Random().nextInt(names.size()));
 				}
 			} else {
-				active_arena = names.get(0);
+				activeArena = names.get(0);
 			}
 		} else if (names.size() == 1) {
 			ConfigTools.setMapchange(false);
-			active_arena = names.get(0);
+			activeArena = names.get(0);
 		}
 	}
 
-	public static void checkArenas() {
-		ConfigUtil configutil = ConfigCreation.manager.getNewConfig("locations.yml");
-		ConfigurationSection section = configutil.getConfigurationSection("Arenas");
+	public void checkArenas() {
+		ConfigUtil configUtil = Main.getInstance().getConfigCreation().getManager().getNewConfig("locations.yml");
+		ConfigurationSection section = configUtil.getConfigurationSection("Arenas");
 		names = new LinkedList<>();
 		if (section != null) {
 			if (section.getKeys(false).size() > 0) {
 				for (String arena : section.getKeys(false)) {
 					LocationTools locationtools = new LocationTools(arena);
-					if (locationtools.isPlayable() && KitTools.isKit(arena)) {
+					if (locationtools.isPlayable() && KitTools.hasKit(arena)) {
 						names.add(arena);
 					}
 				}
@@ -69,15 +69,15 @@ public class ArenaManager {
 		}
 	}
 
-	public static void refresh() {
+	public void refresh() {
 		loadArenas();
-		if (active_arena != null) {
-			if (arenachanger != null) {
-				arenachanger.stop();
-				arenachanger = null;
+		if (activeArena != null) {
+			if (arenaChanger != null) {
+				arenaChanger.stop();
+				arenaChanger = null;
 			}
 			if (ConfigTools.getMapchange()) {
-				arenachanger = new ArenaChanger();
+				arenaChanger = new ArenaChanger();
 			}
 		}
 	}

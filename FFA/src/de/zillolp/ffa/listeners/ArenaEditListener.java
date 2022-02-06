@@ -17,27 +17,25 @@ import de.zillolp.ffa.config.tools.KitTools;
 import de.zillolp.ffa.config.tools.LanguageTools;
 import de.zillolp.ffa.config.tools.LocationTools;
 import de.zillolp.ffa.main.Main;
-import de.zillolp.ffa.map.ArenaManager;
 import de.zillolp.ffa.profiles.InventoryProfil;
 import de.zillolp.ffa.profiles.PlayerProfil;
-import de.zillolp.ffa.utils.InventorySetter;
 import de.zillolp.ffa.xclasses.XMaterial;
 
 public class ArenaEditListener implements Listener {
-	private HashMap<Player, InventoryProfil> invprofiles = Main.invprofiles;
-	private HashMap<Player, PlayerProfil> playerprofiles = Main.playerprofiles;
+	private HashMap<Player, InventoryProfil> invprofiles = Main.getInstance().invprofiles;
+	private HashMap<Player, PlayerProfil> playerprofiles = Main.getInstance().playerprofiles;
 
 	@EventHandler
 	public void on(InventoryClickEvent e) {
-		Player p = (Player) e.getWhoClicked();
-		PlayerProfil playerprofil = playerprofiles.get(p);
-		InventoryProfil invprofil = invprofiles.get(p);
+		Player player = (Player) e.getWhoClicked();
+		PlayerProfil playerprofil = playerprofiles.get(player);
+		InventoryProfil invprofil = invprofiles.get(player);
 		if (playerprofil != null) {
 			Inventory clickedinv = e.getClickedInventory();
 			ItemStack currentitem = e.getCurrentItem();
 			if (clickedinv != null && currentitem != null && currentitem.getType() != Material.AIR) {
 				String viewtitle = e.getView().getTitle();
-				if (viewtitle != null && viewtitle.equalsIgnoreCase(InventorySetter.TITLE)) {
+				if (viewtitle != null && viewtitle.equalsIgnoreCase(Main.getInstance().getInventorySetter().TITLE)) {
 					e.setCancelled(true);
 					ClickType clicktype = e.getClick();
 					String itemname = currentitem.getItemMeta().getDisplayName();
@@ -46,117 +44,117 @@ public class ArenaEditListener implements Listener {
 					String arena = playerprofil.getArena();
 					boolean english = ConfigTools.getEnglish();
 					if (itemtype == XMaterial.IRON_SWORD.parseMaterial()
-							&& itemname.equalsIgnoreCase(InventorySetter.SET_KIT)) {
-						PlayerInventory player_inv = p.getInventory();
+							&& itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().SET_KIT)) {
+						PlayerInventory player_inv = player.getInventory();
 						KitTools kittools = new KitTools(arena, player_inv.getContents(),
 								player_inv.getArmorContents());
 						if (clicktype == ClickType.LEFT) {
 							kittools.saveKit();
-							ArenaManager.checkArenas();
+							Main.getInstance().getArenaManager().checkArenas();
 							if (english) {
-								p.sendMessage(PREFIX + "§7You set the §ekit §7for the arena §b" + arena + "§7.");
+								player.sendMessage(PREFIX + "§7You set the §ekit §7for the arena §b" + arena + "§7.");
 							} else {
-								p.sendMessage(
+								player.sendMessage(
 										PREFIX + "§7Du hast das §eKit §7für die Arena §b" + arena + " §7gesetzt.");
 							}
-							InventorySetter.setArenainv(p, invprofil.getArenainv());
+							Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 						} else if (clicktype == ClickType.RIGHT) {
-							p.closeInventory();
-							kittools.loadKit(p);
+							player.closeInventory();
+							kittools.loadKit(player);
 							if (english) {
-								p.sendMessage(
+								player.sendMessage(
 										PREFIX + "§7You have loaded the §ekit §7for the arena §b" + arena + "§7.");
 							} else {
-								p.sendMessage(
+								player.sendMessage(
 										PREFIX + "§7Du hast das §eKit §7für die Arena §b" + arena + " §7geladen.");
 							}
 						}
 					} else if (itemtype == XMaterial.BEACON.parseMaterial()) {
 						LocationTools locationtools = new LocationTools(arena);
-						if (itemname.equalsIgnoreCase(InventorySetter.TEAMS_ALLOWED)) {
+						if (itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().TEAMS_ALLOWED)) {
 							locationtools.setTeams(false);
-							ArenaManager.checkArenas();
+							Main.getInstance().getArenaManager().checkArenas();
 							if (english) {
-								p.sendMessage(
+								player.sendMessage(
 										PREFIX + "§7Teams are now §cnot allowed §7for the arena §b" + arena + "§7.");
 							} else {
-								p.sendMessage(PREFIX + "§7Teams sind für die Arena §b" + arena + " §7nun §cverboten.");
+								player.sendMessage(PREFIX + "§7Teams sind für die Arena §b" + arena + " §7nun §cverboten.");
 							}
-						} else if (itemname.equalsIgnoreCase(InventorySetter.TEAMS_NOT_ALLOWED)) {
+						} else if (itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().TEAMS_NOT_ALLOWED)) {
 							locationtools.setTeams(true);
-							ArenaManager.checkArenas();
+							Main.getInstance().getArenaManager().checkArenas();
 							if (english) {
-								p.sendMessage(PREFIX + "§7Teams are now §aallowed §7for the arena §b" + arena + "§7.");
+								player.sendMessage(PREFIX + "§7Teams are now §aallowed §7for the arena §b" + arena + "§7.");
 							} else {
-								p.sendMessage(PREFIX + "§7Teams sind für die Arena §b" + arena + " §7nun §aerlaubt.");
+								player.sendMessage(PREFIX + "§7Teams sind für die Arena §b" + arena + " §7nun §aerlaubt.");
 							}
 						}
-						InventorySetter.setArenainv(p, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					} else if (itemtype == XMaterial.SANDSTONE.parseMaterial()) {
 						LocationTools locationtools = new LocationTools(arena);
-						if (itemname.equalsIgnoreCase(InventorySetter.BLOCKS_ACTIVATED)) {
+						if (itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().BLOCKS_ACTIVATED)) {
 							locationtools.setBuild(false);
 							if (english) {
-								p.sendMessage(
+								player.sendMessage(
 										PREFIX + "§7Placing blocks is §cdeactivated §7in the arena §b" + arena + "§7.");
 							} else {
-								p.sendMessage(
+								player.sendMessage(
 										PREFIX + "§7Blöcke Platzieren ist in der Arena §b" + arena + " §cdeaktiviert.");
 							}
-						} else if (itemname.equalsIgnoreCase(InventorySetter.BLOCKS_DEACTIVATED)) {
+						} else if (itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().BLOCKS_DEACTIVATED)) {
 							locationtools.setBuild(true);
 							if (english) {
-								p.sendMessage(
+								player.sendMessage(
 										PREFIX + "§7Placing blocks is §aactivated §7in the arena §b" + arena + "§7.");
 							} else {
-								p.sendMessage(
+								player.sendMessage(
 										PREFIX + "§7Blöcke Platzieren ist in der Arena §b" + arena + " §aaktiviert.");
 							}
 						}
-						InventorySetter.setArenainv(p, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					} else if (itemtype == XMaterial.OAK_SIGN.parseMaterial()
-							&& itemname.equalsIgnoreCase(InventorySetter.SET_SIGN)) {
+							&& itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().SET_SIGN)) {
 						playerprofil.setSetsign(true);
 						if (english) {
-							p.sendMessage(PREFIX + "§7You set the §eSpawn §7for the arena §b" + arena + "§7.");
+							player.sendMessage(PREFIX + "§7You set the §eSpawn §7for the arena §b" + arena + "§7.");
 						} else {
-							p.sendMessage(PREFIX + "§7Mache Rechtsklick auf ein §6Schild§7.");
+							player.sendMessage(PREFIX + "§7Mache Rechtsklick auf ein §6Schild§7.");
 						}
 					} else if (itemtype == XMaterial.PLAYER_HEAD.parseMaterial()
-							&& itemname.equalsIgnoreCase(InventorySetter.SET_UPPERCORNER)) {
-						LocationTools locationtools = new LocationTools(arena, p.getLocation());
+							&& itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().SET_UPPERCORNER)) {
+						LocationTools locationtools = new LocationTools(arena, player.getLocation());
 						locationtools.saveLocation("Uppercorner");
-						ArenaManager.checkArenas();
+						Main.getInstance().getArenaManager().checkArenas();
 						if (english) {
-							p.sendMessage(PREFIX + "§7You set the §eUpper Corner §7for the arena §b" + arena + "§7.");
+							player.sendMessage(PREFIX + "§7You set the §eUpper Corner §7for the arena §b" + arena + "§7.");
 						} else {
-							p.sendMessage(
+							player.sendMessage(
 									PREFIX + "§7Du hast die §eObere Ecke §7für die Arena §b" + arena + " §7gesetzt.");
 						}
-						InventorySetter.setArenainv(p, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					} else if (itemtype == XMaterial.MAGMA_CREAM.parseMaterial()
-							&& itemname.equalsIgnoreCase(InventorySetter.SET_SPAWN)) {
-						LocationTools locationtools = new LocationTools(arena, p.getLocation());
+							&& itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().SET_SPAWN)) {
+						LocationTools locationtools = new LocationTools(arena, player.getLocation());
 						locationtools.saveLocation("Spawn");
-						ArenaManager.checkArenas();
+						Main.getInstance().getArenaManager().checkArenas();
 						if (english) {
-							p.sendMessage(PREFIX + "§7You set the §eSpawn §7for the arena §b" + arena + "§7.");
+							player.sendMessage(PREFIX + "§7You set the §eSpawn §7for the arena §b" + arena + "§7.");
 						} else {
-							p.sendMessage(PREFIX + "§7Du hast den §eSpawn §7für die Arena §b" + arena + " §7gesetzt.");
+							player.sendMessage(PREFIX + "§7Du hast den §eSpawn §7für die Arena §b" + arena + " §7gesetzt.");
 						}
-						InventorySetter.setArenainv(p, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					} else if (itemtype == XMaterial.PLAYER_HEAD.parseMaterial()
-							&& itemname.equalsIgnoreCase(InventorySetter.SET_BUTTOMCORNER)) {
-						LocationTools locationtools = new LocationTools(arena, p.getLocation());
+							&& itemname.equalsIgnoreCase(Main.getInstance().getInventorySetter().SET_BUTTOMCORNER)) {
+						LocationTools locationtools = new LocationTools(arena, player.getLocation());
 						locationtools.saveLocation("Bottomcorner");
-						ArenaManager.checkArenas();
+						Main.getInstance().getArenaManager().checkArenas();
 						if (english) {
-							p.sendMessage(PREFIX + "§7You set the §eButtom Corner §7for the arena §b" + arena + "§7.");
+							player.sendMessage(PREFIX + "§7You set the §eButtom Corner §7for the arena §b" + arena + "§7.");
 						} else {
-							p.sendMessage(
+							player.sendMessage(
 									PREFIX + "§7Du hast die §eUntere Ecke §7für die Arena §b" + arena + " §7gesetzt.");
 						}
-						InventorySetter.setArenainv(p, invprofil.getArenainv());
+						Main.getInstance().getInventorySetter().setArenainv(player, invprofil.getArenaInventory());
 					}
 				}
 			}

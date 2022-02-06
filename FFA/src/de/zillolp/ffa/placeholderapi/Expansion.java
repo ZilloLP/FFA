@@ -31,7 +31,7 @@ public class Expansion extends PlaceholderExpansion {
 
 	@Override
 	public String onRequest(OfflinePlayer p, String identifier) {
-		PlayerProfil profil = Main.playerprofiles.get(p);
+		PlayerProfil profil = Main.getInstance().playerprofiles.get(p);
 
 		if (profil != null) {
 			Long kills = profil.getKills();

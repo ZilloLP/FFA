@@ -34,30 +34,39 @@ import de.zillolp.ffa.utils.InventorySetter;
 import de.zillolp.ffa.xclasses.XMaterial;
 
 public class Main extends JavaPlugin {
-	public static Main plugin;
-	public static boolean disabled;
-	public static HashMap<Player, InventoryProfil> invprofiles;
-	public static HashMap<Player, PlayerProfil> playerprofiles;
-
+	
+	public boolean disabled;
+	public HashMap<Player, InventoryProfil> invprofiles;
+	public HashMap<Player, PlayerProfil> playerprofiles;
+	
+	private static Main instance;
+	private ArenaManager arenaManager;
+	private InventorySetter inventorySetter;
+	private ConfigCreation configCreation;
+	
 	@Override
 	public void onEnable() {
-		plugin = this;
+		instance = this;
 		new Metrics(this, 12256);
 		if (register()) {
 			init(Bukkit.getPluginManager());
 			Bukkit.getConsoleSender()
-					.sendMessage("\r\n" + "§c                   ______  ______  _____  \r\n"
+					.sendMessage(
+							"\r\n"  
+							+ "§c                   ______  ______  _____ \r\n"
 							+ "§c                 (______)(______)(_____) \r\n"
 							+ "§c                 (_)__   (_)__  (_)___(_)\r\n"
 							+ "§c                 (____)  (____) (_______)\r\n"
 							+ "§c                 (_)     (_)    (_)   (_)\r\n"
-							+ "§c                 (_)     (_)    (_)   (_)\r\n" + "");
+							+ "§c                 (_)     (_)    (_)   (_)\r\n" 
+							+ ""
+							);
 			Bukkit.getConsoleSender().sendMessage("§7-----------------------");
 			Bukkit.getConsoleSender().sendMessage("§cFFA §e" + getDescription().getVersion());
 			Bukkit.getConsoleSender().sendMessage("§7Developed by §bZilloLP");
 			Bukkit.getConsoleSender().sendMessage("§7-----------------------");
 		} else {
-			Bukkit.getPluginManager().disablePlugin(plugin);
+			Bukkit.getPluginManager().disablePlugin(this);
 		}
 	}
 
@@ -80,8 +89,24 @@ public class Main extends JavaPlugin {
 		}
 	}
 
+	public static Main getInstance() {
+		return instance;
+	}
+	
+	public ArenaManager getArenaManager() {
+		return arenaManager;
+	}
+
+	public InventorySetter getInventorySetter() {
+		return inventorySetter;
+	}
+	
+	public ConfigCreation getConfigCreation() {
+		return configCreation;
+	}
+	
 	private boolean register() {
-		new ConfigCreation();
+		configCreation = new ConfigCreation();
 		new ConfigTools();
 		new LanguageTools();
 		new PermissionTools();
@@ -93,8 +118,8 @@ public class Main extends JavaPlugin {
 		disabled = false;
 		invprofiles = new HashMap<>();
 		playerprofiles = new HashMap<>();
-		new InventorySetter();
-		new ArenaManager();
+		inventorySetter = new InventorySetter();
+		arenaManager = new ArenaManager();
 		KitTools.loadKits();
 		if (ConfigTools.getScoreboard() || ConfigTools.getActionbar()) {
 			new Manager();
@@ -118,7 +143,7 @@ public class Main extends JavaPlugin {
 		}
 	}
 
-	public static void reload() {
+	public void reload() {
 		uploadPlayers();
 		BlockPlaceListener.replaceAll();
 		Manager.stop();
@@ -132,11 +157,11 @@ public class Main extends JavaPlugin {
 		if (ConfigTools.getScoreboard() || ConfigTools.getActionbar()) {
 			new Manager();
 		}
-		ArenaManager.refresh();
+		arenaManager.refresh();
 		createPlayers();
 	}
 
-	private static void uploadPlayers() {
+	private void uploadPlayers() {
 		for (Player all : Bukkit.getOnlinePlayers()) {
 			if (playerprofiles.containsKey(all)) {
 				PlayerProfil playerprofil = playerprofiles.get(all);
@@ -154,10 +179,10 @@ public class Main extends JavaPlugin {
 		}
 	}
 
-	private static void createPlayers() {
+	private void createPlayers() {
 		for (Player all : Bukkit.getOnlinePlayers()) {
 			DatenManager.createPlayer(all);
-			Bukkit.getScheduler().runTaskLater(Main.plugin, new Runnable() {
+			Bukkit.getScheduler().runTaskLater(this, new Runnable() {
 				@Override
 				public void run() {
 					if (!(playerprofiles.containsKey(all))) {
@@ -166,7 +191,7 @@ public class Main extends JavaPlugin {
 				}
 			}, 5);
 			if (ConfigTools.getBungeecord()) {
-				String arena = ArenaManager.active_arena;
+				String arena = arenaManager.activeArena;
 				if (arena != null) {
 					LocationTools locationtools = new LocationTools(arena);
 					all.teleport(locationtools.loadLocation("Spawn"));
