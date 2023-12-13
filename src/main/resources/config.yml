@@ -1,0 +1,20 @@
+# +------------------------------------------+
+# <                   FFA                    >
+# +------------------------------------------+
+
+# Database
+MySQL: false
+
+# Displays
+Actionbar: true
+Scoreboard: true
+
+# Shows the hearts of a player above his head
+Hearts: true
+
+# Timings
+Stats refresh seconds: 10
+Map change minutes: 15
+
+# The block that appears before a block is removed
+Block replace type: REDSTONE_BLOCK

@@ -1,0 +1,10 @@
+name: FFA
+version: '${project.version}'
+main: de.zillolp.ffa.FFA
+api-version: '1.20'
+author: ZilloLP
+softdepend:
+  - Multiverse-Core
+commands:
+  ffa:
+    description: FFA commands

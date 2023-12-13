@@ -1,0 +1,74 @@
+# +------------------------------------------+
+# <                   FFA                    >
+# +------------------------------------------+
+
+# Basic messages
+PREFIX: '&7[&cFFA&7] '
+NO_PERMISSION: '&cYou have no permissions to do this!'
+ONLY_PLAYER: '&cYou have to be a player!'
+UNKNOWN_COMMAND: '&cThis command is not known to us.'
+NO_DATABASE_CONNECTION: '&cThe plugin is not connected to the database!'
+
+# Interact messages
+MAP_NOT_EXISTS: '&cThis map does not exist.'
+MAP_NOT_PLAYABLE: '&cThis map is not finished.'
+NO_CURRENT_MAP: '&cCurrently no map is played.'
+ALREADY_JOINED: '&cYou are already on the map.'
+NOT_IN_GAME: '&cYou are currently not in any round.'
+MAP_JOIN: '&7You join the map &e%map% &7built by &6%builder%&7.'
+MAP_LEAVE: '&7You are leaving the map &e%map%&7.'
+HELP_INFO:
+  1: '&c&lThe FFA commands:'
+  2: '&e/ffa help.'
+  3: '&7Shows you a list of all commands.'
+  4: '&e/ffa join.'
+  5: '&7Lets you join an FFA round.'
+  6: '&e/ffa leave'
+  7: '&7Lets you leave a round.'
+ADMIN_HELP_INFO:
+  1: '&e/ffa create <mapname> <buildername>.'
+  2: '&7Creates an FFA Map.'
+  3: '&e/ffa set <mapname> spawn.'
+  4: '&7Sets the map spawn.'
+  5: '&e/ffa set <mapname> kit.'
+  6: '&7Sets the kit for the map.'
+  7: '&e/ffa set <mapname> top.'
+  8: '&7Sets the top 10 hologram position for the map.'
+  9: '&e/ffa set <mapname> protection.'
+  10: '&7Sets the type of spawn protection.'
+  11: '&e/ffa set <mapname> radius <number>.'
+  12: '&7Sets the spawn protection radius.'
+
+# PvP messages
+DEATH_MESSAGE: '&7You &cdied!'
+KILL_MESSAGE: '&7You killed &e%player% &7with &c%<3%%health%&7.'
+KILLED_MESSAGE: '&7You were killed by &e%player% &7with &c%<3%%health%&7.'
+KILL_STREAK_MESSAGE: '&7The player &e%player% &7has a Killstreak of &e%killstreak% &7kills!'
+KILL_STREAK_LOSE: '&7You have &clost &7your &e%killstreak% &7Killstreak!'
+
+# Map change messages
+MAP_CHANGE: '&7The map will now be changed.'
+MAP_CHANGE_COUNTER: '&7The map will be changed in &e%time%&7.'
+
+# Holograms
+Top-10:
+  HEADER: '&f&lTop-10'
+  PLACE: '&6&l%place% &7- &e%player% &c%kills% &7Kills'
+
+# Scoreboard
+HEARTS: '&c%<3%'
+TITLE: '&f%>% &lYourServer.net'
+LINES:
+  1: '%blank%'
+  2: '&fKills:'
+  3: '&e%kills%'
+  4: '%blank%'
+  5: '&fMap:'
+  6: '&d%map%'
+  7: '%blank%'
+  8: '&fDeaths:'
+  9: '&c%deaths%'
+  10: '%blank%'
+  11: '&fKillstreak:'
+  12: '&9%killstreak%'
+  13: '%blank%'
