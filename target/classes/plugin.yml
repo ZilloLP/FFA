@@ -1,5 +1,5 @@
 name: FFA
-version: '1.4'
+version: '1.5'
 main: de.zillolp.ffa.FFA
 api-version: '1.20'
 author: ZilloLP
