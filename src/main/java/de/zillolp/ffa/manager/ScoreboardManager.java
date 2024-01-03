@@ -1,9 +1,8 @@
-package de.zillolp.ffa.scoreboard;
+package de.zillolp.ffa.manager;
 
 import de.zillolp.ffa.FFA;
 import de.zillolp.ffa.config.customconfigs.LanguageConfig;
 import de.zillolp.ffa.config.customconfigs.PluginConfig;
-import de.zillolp.ffa.manager.PlayerManager;
 import de.zillolp.ffa.map.Map;
 import de.zillolp.ffa.map.MapManager;
 import de.zillolp.ffa.utils.ReflectionUtil;
@@ -11,7 +10,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetDisplayObjectivePacket;
 import net.minecraft.network.protocol.game.ClientboundSetObjectivePacket;
 import net.minecraft.network.protocol.game.ClientboundSetScorePacket;
-import net.minecraft.server.ServerScoreboard;
 import net.minecraft.world.scores.DisplaySlot;
 import net.minecraft.world.scores.Objective;
 import net.minecraft.world.scores.PlayerTeam;
@@ -73,15 +71,15 @@ public class ScoreboardManager {
     public void createSideBoard(Player player) {
         Scoreboard scoreboard = new Scoreboard();
         playerSideBoards.put(player.getUniqueId(), scoreboard);
-        Objective sidebarObjective = new Objective(scoreboard, "sideBoard", ObjectiveCriteria.DUMMY, Component.literal(languageConfig.getTranslatedLanguage("TITLE")), ObjectiveCriteria.DUMMY.getDefaultRenderType());
+        Objective sidebarObjective = new Objective(scoreboard, "sideBoard", ObjectiveCriteria.DUMMY, Component.literal(languageConfig.getTranslatedLanguage("TITLE")), ObjectiveCriteria.DUMMY.getDefaultRenderType(), false, null);
         createObjective(player, sidebarObjective, DisplaySlot.SIDEBAR);
 
         String[] lines = languageConfig.getScoreboardLines("LINES", playerManager.getPlayerProfiles().get(player.getUniqueId()));
-        int score = lines.length;
+        int scoreCount = lines.length;
         for (String line : lines) {
-            createTeam(player.getUniqueId(), "line" + score, line);
-            reflectionUtil.sendPacket(new ClientboundSetScorePacket(ServerScoreboard.Method.CHANGE, "sideBoard", line, score), player);
-            score--;
+            createTeam(player.getUniqueId(), "line" + scoreCount, line);
+            reflectionUtil.sendPacket(new ClientboundSetScorePacket("line" + scoreCount, "sideBoard", scoreCount, Component.literal(line), null), player);
+            scoreCount--;
         }
     }
 
@@ -90,7 +88,7 @@ public class ScoreboardManager {
         Scoreboard scoreboard = new Scoreboard();
         playerHealthBoards.put(uuid, scoreboard);
         playerHealth.put(uuid, (int) (player.getHealth() / 2));
-        Objective belowNameObjective = new Objective(scoreboard, "belowName", ObjectiveCriteria.DUMMY, Component.literal(languageConfig.getTranslatedLanguage("HEARTS")), ObjectiveCriteria.DUMMY.getDefaultRenderType());
+        Objective belowNameObjective = new Objective(scoreboard, "belowName", ObjectiveCriteria.DUMMY, Component.literal(languageConfig.getTranslatedLanguage("HEARTS")), ObjectiveCriteria.DUMMY.getDefaultRenderType(), false, null);
         createObjective(player, belowNameObjective, DisplaySlot.BELOW_NAME);
         sendHealth(player);
     }
@@ -99,24 +97,23 @@ public class ScoreboardManager {
         UUID uuid = player.getUniqueId();
         Scoreboard scoreboard = playerSideBoards.get(uuid);
         String[] lines = languageConfig.getScoreboardLines("LINES", playerManager.getPlayerProfiles().get(player.getUniqueId()));
-        int score = lines.length;
+        int scoreCount = lines.length;
         for (String prefix : lines) {
-            String line = "line" + score;
+            String line = "line" + scoreCount;
             PlayerTeam playerTeam = scoreboard.getPlayerTeam(line);
             if (playerTeam == null) {
                 createTeam(uuid, line, prefix);
-                score--;
+                scoreCount--;
                 continue;
             }
             String currentPrefix = playerTeam.getPlayerPrefix().getString();
             if (currentPrefix.equalsIgnoreCase(prefix)) {
-                score--;
+                scoreCount--;
                 continue;
             }
-            reflectionUtil.sendPacket(new ClientboundSetScorePacket(ServerScoreboard.Method.REMOVE, "sideBoard", currentPrefix, score), player);
             playerTeam.setPlayerPrefix(Component.literal(prefix));
-            reflectionUtil.sendPacket(new ClientboundSetScorePacket(ServerScoreboard.Method.CHANGE, "sideBoard", prefix, score), player);
-            score--;
+            reflectionUtil.sendPacket(new ClientboundSetScorePacket(line, "sideBoard", scoreCount, Component.literal(prefix), null), player);
+            scoreCount--;
         }
     }
 
@@ -166,7 +163,7 @@ public class ScoreboardManager {
             return;
         }
         for (Player player1 : world.getPlayers()) {
-            reflectionUtil.sendPacket(new ClientboundSetScorePacket(ServerScoreboard.Method.CHANGE, "belowName", player.getName(), (int) (player.getHealth() / 2)), player1);
+            reflectionUtil.sendPacket(new ClientboundSetScorePacket(player.getName(), "belowName", (int) (player.getHealth() / 2), null, null), player1);
         }
     }
 

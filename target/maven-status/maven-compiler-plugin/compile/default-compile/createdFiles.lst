@@ -28,6 +28,7 @@ de\zillolp\ffa\bstats\Metrics$JsonObjectBuilder.class
 de\zillolp\ffa\bstats\Metrics$SimpleBarChart.class
 de\zillolp\ffa\bstats\Metrics$CustomChart.class
 de\zillolp\ffa\bstats\Metrics$SimplePie.class
+de\zillolp\ffa\manager\ScoreboardManager.class
 de\zillolp\ffa\bstats\Metrics$MetricsBase.class
 de\zillolp\ffa\placeholder\PlaceholderListener.class
 de\zillolp\ffa\ranking\rankings\TopRanking.class
@@ -43,7 +44,6 @@ de\zillolp\ffa\timer\MapUpdater.class
 de\zillolp\ffa\manager\BlockManager.class
 de\zillolp\ffa\commands\subcommands\CreateSubCommand.class
 de\zillolp\ffa\timer\MapUpdater$1.class
-de\zillolp\ffa\scoreboard\ScoreboardManager.class
 de\zillolp\ffa\config\customconfigs\MySQLConfig.class
 de\zillolp\ffa\bstats\Metrics$AdvancedBarChart.class
 de\zillolp\ffa\commands\subcommands\LeaveSubCommand.class

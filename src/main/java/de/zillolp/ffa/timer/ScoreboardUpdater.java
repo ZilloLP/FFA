@@ -1,9 +1,9 @@
 package de.zillolp.ffa.timer;
 
 import de.zillolp.ffa.FFA;
+import de.zillolp.ffa.manager.ScoreboardManager;
 import de.zillolp.ffa.map.Map;
 import de.zillolp.ffa.map.MapManager;
-import de.zillolp.ffa.scoreboard.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
