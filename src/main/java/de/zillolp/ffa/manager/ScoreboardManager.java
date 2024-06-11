@@ -21,6 +21,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.UUID;
 
 public class ScoreboardManager {
@@ -78,7 +79,7 @@ public class ScoreboardManager {
         int scoreCount = lines.length;
         for (String line : lines) {
             createTeam(player.getUniqueId(), "line" + scoreCount, line);
-            reflectionUtil.sendPacket(new ClientboundSetScorePacket("line" + scoreCount, "sideBoard", scoreCount, Component.literal(line), null), player);
+            reflectionUtil.sendPacket(new ClientboundSetScorePacket("line" + scoreCount, "sideBoard", scoreCount, Optional.of(Component.literal(line)), Optional.empty()), player);
             scoreCount--;
         }
     }
@@ -112,7 +113,7 @@ public class ScoreboardManager {
                 continue;
             }
             playerTeam.setPlayerPrefix(Component.literal(prefix));
-            reflectionUtil.sendPacket(new ClientboundSetScorePacket(line, "sideBoard", scoreCount, Component.literal(prefix), null), player);
+            reflectionUtil.sendPacket(new ClientboundSetScorePacket(line, "sideBoard", scoreCount, Optional.of(Component.literal(prefix)), Optional.empty()), player);
             scoreCount--;
         }
     }
@@ -163,7 +164,7 @@ public class ScoreboardManager {
             return;
         }
         for (Player player1 : world.getPlayers()) {
-            reflectionUtil.sendPacket(new ClientboundSetScorePacket(player.getName(), "belowName", (int) (player.getHealth() / 2), null, null), player1);
+            reflectionUtil.sendPacket(new ClientboundSetScorePacket(player.getName(), "belowName", (int) (player.getHealth() / 2), Optional.empty(), Optional.empty()), player1);
         }
     }
 

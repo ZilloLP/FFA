@@ -72,8 +72,14 @@ public class TopRanking extends Ranking {
             if (index > 10) {
                 break;
             }
+            long kills = 0;
             String playerName = rankEntry.getKey();
-            lines.add(languageConfig.getTranslatedLanguage("Top-10.PLACE").replace("%kills%", languageConfig.formatNumber(playerManager.getPlayerProfiles().get(Bukkit.getOfflinePlayer(playerName).getUniqueId()).getKills())).replace("%place%", languageConfig.formatNumber(index)).replace("%player%", playerName));
+            UUID uuid = Bukkit.getOfflinePlayer(playerName).getUniqueId();
+            HashMap<UUID, PlayerProfile> playerProfiles = playerManager.getPlayerProfiles();
+            if (playerProfiles.containsKey(uuid)) {
+                kills = playerProfiles.get(uuid).getKills();
+            }
+            lines.add(languageConfig.getTranslatedLanguage("Top-10.PLACE").replace("%kills%", languageConfig.formatNumber(kills)).replace("%place%", languageConfig.formatNumber(index)).replace("%player%", playerName));
         }
         return lines.toArray(new String[0]);
     }

@@ -122,7 +122,6 @@ public class SetSubCommand extends SubCommand {
 
     private void checkPlayable(Map map) {
         ArrayList<Map> playableMaps = plugin.getMapManager().getPlayableMaps();
-        System.out.println(map.isPlayable());
         if (map.isPlayable() && (!(playableMaps.contains(map)))) {
             playableMaps.add(map);
             JoinSubCommand joinSubCommand = plugin.getJoinSubCommand();

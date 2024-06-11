@@ -1,43 +1,43 @@
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\utils\ReflectionUtil.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\FFA.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\profiles\PlayerProfile.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\map\Map.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\ranking\rankings\TopRanking.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\subcommands\ReloadSubCommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\map\MapManager.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\config\customconfigs\MySQLConfig.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\ranking\rankings\Ranking.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\subcommands\JoinSubCommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\subcommands\SubCommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\timer\CustomUpdater.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\config\customconfigs\LanguageConfig.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\maincommands\MainCommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\bstats\Metrics.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\subcommands\CreateSubCommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\serializer\Base64Serializer.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\listener\PlayerConnectionListener.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\scoreboard\ScoreboardManager.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\config\customconfigs\CustomConfig.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\hologram\holograms\Hologram.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\listener\BlockEventsListener.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\manager\PlayerManager.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\config\customconfigs\LocationConfig.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\hologram\holograms\TextHologram.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\hologram\holograms\LineHologram.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\subcommands\HelpSubCommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\config\customconfigs\PermissionsConfig.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\timer\MapUpdater.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\listener\RespawnListener.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\manager\BlockManager.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\placeholder\PlaceholderListener.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\subcommands\LeaveSubCommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\listener\BlockPlaceListener.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\subcommands\SetSubCommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\timer\ScoreboardUpdater.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\config\customconfigs\PluginConfig.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\config\ConfigManager.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\database\DatabaseManager.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\commands\maincommands\FFACommand.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\ranking\RankingManager.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\database\DatabaseConnector.java
-D:\Development\IntelliJ\workspace\FFA\src\main\java\de\zillolp\ffa\hologram\HologramManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\bstats\Metrics.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\maincommands\FFACommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\maincommands\MainCommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\subcommands\CreateSubCommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\subcommands\HelpSubCommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\subcommands\JoinSubCommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\subcommands\LeaveSubCommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\subcommands\ReloadSubCommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\subcommands\SetSubCommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\commands\subcommands\SubCommand.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\config\ConfigManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\config\customconfigs\CustomConfig.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\config\customconfigs\LanguageConfig.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\config\customconfigs\LocationConfig.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\config\customconfigs\MySQLConfig.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\config\customconfigs\PermissionsConfig.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\config\customconfigs\PluginConfig.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\database\DatabaseConnector.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\database\DatabaseManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\FFA.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\hologram\HologramManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\hologram\holograms\Hologram.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\hologram\holograms\LineHologram.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\hologram\holograms\TextHologram.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\listener\BlockEventsListener.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\listener\BlockPlaceListener.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\listener\PlayerConnectionListener.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\listener\RespawnListener.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\manager\BlockManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\manager\PlayerManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\manager\ScoreboardManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\map\Map.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\map\MapManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\placeholder\PlaceholderListener.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\profiles\PlayerProfile.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\ranking\RankingManager.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\ranking\rankings\Ranking.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\ranking\rankings\TopRanking.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\serializer\Base64Serializer.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\timer\CustomUpdater.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\timer\MapUpdater.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\timer\ScoreboardUpdater.java
+D:\Development\IntelliJ\ffa_workspace\FFA 1.20.6\src\main\java\de\zillolp\ffa\utils\ReflectionUtil.java
